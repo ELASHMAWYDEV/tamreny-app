@@ -40,6 +40,7 @@ const Header = ({ title = "Header", navigation, backBtnEnabled = false }) => {
 };
 
 const Container = styled.View`
+  elevation: 20;
   width: 100%;
   height: 85px;
   padding-top: ${StatusBar.currentHeight}px;

@@ -9,6 +9,7 @@ const App = () => {
     "Cairo-Regular": require("./app/assets/fonts/Cairo-Regular.ttf"),
     "Cairo-SemiBold": require("./app/assets/fonts/Cairo-SemiBold.ttf"),
     "Cairo-Bold": require("./app/assets/fonts/Cairo-Bold.ttf"),
+    "ArabicUI": require("./app/assets/fonts/ArabicUITextMedium.otf"),
   });
 
 
