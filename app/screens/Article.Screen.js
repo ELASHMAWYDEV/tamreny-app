@@ -1,11 +1,15 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { Header } from "../components/index";
 
-const Article = () => {
+const Article = (props) => {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Article</Text>
-    </View>
+    <>
+      <Header {...props} />
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text>Article</Text>
+      </View>
+    </>
   );
 };
 

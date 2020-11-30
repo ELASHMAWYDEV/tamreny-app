@@ -1,13 +1,26 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useFonts } from "expo-font";
+import MainNavigation from "./app/routes/MainNavigation";
+import { AppProvider } from "./app/helpers/AppProvider";
+
+const App = () => {
+  const [fontsLoaded] = useFonts({
+    Ionicons: require("react-native-ionicons/fonts/Ionicons.ttf"),
+    "Cairo-Regular": require("./app/assets/fonts/Cairo-Regular.ttf"),
+    "Cairo-SemiBold": require("./app/assets/fonts/Cairo-SemiBold.ttf"),
+    "Cairo-Bold": require("./app/assets/fonts/Cairo-Bold.ttf"),
+  });
 
 
-export default function App() {
   return (
-    <View style={styles.container}>
-      <NormalText>Hi</NormalText>
-    </View>
+    <AppProvider>
+      {fontsLoaded && (
+        <>
+          <MainNavigation />
+        </>
+      )}
+    </AppProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({});
+export default App;
