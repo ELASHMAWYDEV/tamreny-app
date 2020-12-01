@@ -102,7 +102,7 @@ const SmallCard = styled.View`
   background-color: ${Colors.white};
   border-radius: 10px;
   overflow: hidden;
-  border: 0.5px solid ${Colors.black + "1a"};
+  border: 0.5px solid ${Colors.black + "11"};
   padding: 10px 0px;
   align-items: center;
 `;

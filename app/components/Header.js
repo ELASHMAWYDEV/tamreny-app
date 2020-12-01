@@ -42,8 +42,8 @@ const Header = ({ title = "Header", navigation, backBtnEnabled = false }) => {
 const Container = styled.View`
   elevation: 20;
   width: 100%;
-  height: 85px;
-  padding-top: ${StatusBar.currentHeight}px;
+  height: 95px;
+  padding-top: ${StatusBar.currentHeight + 10}px;
   padding-bottom: 5px;
   background-color: ${Colors.primary};
   flex-direction: row;

@@ -1,5 +1,4 @@
 import React from "react";
-import { TouchableNativeFeedback } from "react-native";
 import styled from "styled-components";
 import { Header } from "../components/index";
 import Colors from "../settings/Colors";
@@ -11,12 +10,12 @@ const Articles = (props) => {
       <Header {...props} title="المقالات" backBtnEnabled/>
       <ScrollContainer>
         <Container>
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
+          <ArticleCard {...props}/>
+          <ArticleCard {...props}/>
+          <ArticleCard {...props}/>
+          <ArticleCard {...props}/>
+          <ArticleCard {...props}/>
+          <ArticleCard {...props}/>
         </Container>
       </ScrollContainer>
     </>

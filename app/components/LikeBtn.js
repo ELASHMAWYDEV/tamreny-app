@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { TouchableWithoutFeedback, Animated } from "react-native";
 import styled from "styled-components";
 import Colors from "../settings/Colors";
 import Icon from "react-native-ionicons";
+
 
 const LikeBtn = ({ liked = false,  style = styled.View`` }) => {
   const [isLiked, setIsLiked] = useState(liked);
@@ -13,17 +14,17 @@ const LikeBtn = ({ liked = false,  style = styled.View`` }) => {
     Animated.sequence([
       Animated.timing(pressAnim, {
         toValue: isLiked ? 0.9 : 2,
-        duration: 100,
+        duration: 200,
         useNativeDriver: false,
       }),
-      Animated.timing(pressAnim, {
-        toValue: isLiked ? 0.9 : 2.3,
-        duration: 100,
-        useNativeDriver: false,
-      }),
+      // Animated.timing(pressAnim, {
+      //   toValue: isLiked ? 0.9 : 2.3,
+      //   duration: 100,
+      //   useNativeDriver: false,
+      // }),
       Animated.timing(pressAnim, {
         toValue: 0.9,
-        duration: 50,
+        duration: 100,
         useNativeDriver: false,
       }),
     ]).start();
@@ -33,7 +34,7 @@ const LikeBtn = ({ liked = false,  style = styled.View`` }) => {
     width: 45px;
     height: 45px;
     border-radius: 30px;
-    border: 1px solid ${Colors.black + "1a"};
+    border: 1px solid ${Colors.black + "11"};
     background-color: ${Colors.white};
     align-items: center;
     justify-content: center;

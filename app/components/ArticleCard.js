@@ -2,13 +2,14 @@ import React from "react";
 import { TouchableNativeFeedback } from "react-native";
 import styled from "styled-components";
 import Colors from "../settings/Colors";
-import { LikeBtn } from "./index";
+import { LikeBtn, ShareBtn } from "./index";
 
-const ArticleCard = ({}) => {
+const ArticleCard = ({navigation}) => {
   return (
-    <TouchableNativeFeedback useForeground onPress={() => null}>
+    <TouchableNativeFeedback useForeground onPress={() => navigation.navigate("Article")}>
       <Container>
         <LikeBtn style={LikeBtnStyle} />
+        <ShareBtn style={ShareBtnStyle}/>
         <ArticleImage source={require("../assets/img/article-image.png")} />
         <Title numberOfLines={1}>
           هنا يوضع عنوان المقالة ، ويعتبر هذا النص هو عنوان المدونة التي سيتم
@@ -31,7 +32,7 @@ const Container = styled.View`
   background-color: ${Colors.white};
   elevation: 10;
   margin-bottom: 15px;
-  border: 0.5px solid ${Colors.black + "1a"};
+  border: 1px solid ${Colors.black + "11"};
   overflow: hidden;
 `;
 
@@ -60,6 +61,10 @@ const LikeBtnStyle = styled.View`
   z-index: 5;
   top: 10px;
   right: 10px;
+`;
+
+const ShareBtnStyle = styled(LikeBtnStyle)`
+  left: 10px;
 `;
 
 export default ArticleCard;
