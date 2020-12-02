@@ -17,11 +17,6 @@ const LikeBtn = ({ liked = false,  style = styled.View`` }) => {
         duration: 200,
         useNativeDriver: false,
       }),
-      // Animated.timing(pressAnim, {
-      //   toValue: isLiked ? 0.9 : 2.3,
-      //   duration: 100,
-      //   useNativeDriver: false,
-      // }),
       Animated.timing(pressAnim, {
         toValue: 0.9,
         duration: 100,
