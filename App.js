@@ -1,6 +1,6 @@
 import React from "react";
 import { useFonts } from "expo-font";
-import MainNavigation from "./app/routes/MainNavigation";
+import DrawerNavigation from "./app/routes/DrawerNavigation";
 import { AppProvider } from "./app/helpers/AppProvider";
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
     <AppProvider>
       {fontsLoaded && (
         <>
-          <MainNavigation />
+          <DrawerNavigation />
         </>
       )}
     </AppProvider>

@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { Animated, TouchableNativeFeedback, TextInput } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { Animated, TouchableNativeFeedback, TextInput, StyleSheet } from "react-native";
 import styled from "styled-components";
 import Colors from "../settings/Colors";
 import Icon from "react-native-ionicons";
@@ -9,6 +9,7 @@ const SearchBtn = ({ style = styled.View`` }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const pressAnim = useRef(new Animated.Value(-400)).current;
+  const searchInput = useRef();
 
   const Container = styled(style)`
     width: 100%;
@@ -16,7 +17,9 @@ const SearchBtn = ({ style = styled.View`` }) => {
     overflow: hidden;
   `;
 
-  const SearchBox = Animated.createAnimatedComponent(SearchBoxStyle);
+  const SearchBoxContainer = Animated.createAnimatedComponent(
+    SearchBoxContainerStyle
+  );
 
   const pressBtn = () => {
     if (searchQuery.length == 0) {
@@ -27,7 +30,6 @@ const SearchBtn = ({ style = styled.View`` }) => {
       }).start();
       setActive(!active);
     } else {
-      
     }
   };
 
@@ -35,7 +37,7 @@ const SearchBtn = ({ style = styled.View`` }) => {
     <Container>
       <TouchableNativeFeedback onPress={pressBtn} useForeground>
         <SearchButton>
-          {active && searchQuery.length != 0 ? (
+          {active && searchQuery ? (
             <SearchText>ابحث</SearchText>
           ) : (
             <>
@@ -44,17 +46,36 @@ const SearchBtn = ({ style = styled.View`` }) => {
           )}
         </SearchButton>
       </TouchableNativeFeedback>
-      <SearchBoxContainer>
-        <SearchBox
+      <SearchBoxContainer style={{ left: pressAnim }}>
+        <TextInput
+          style={styles.TextInputStyle}
           placeholder="بحث..."
           value={searchQuery}
           onChangeText={setSearchQuery}
-          style={{ left: pressAnim }}
         />
       </SearchBoxContainer>
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  TextInputStyle: {
+    width: "95%",
+    height: 42,
+    backgroundColor: Colors.white,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: Colors.black + "11",
+    borderRadius: 20,
+    fontFamily: "ArabicUI",
+    paddingRight: 22,
+    paddingLeft: 22,
+    paddingLeft: 30,
+    textAlign: "right",
+    position: "absolute",
+    zIndex: 1,
+  },
+});
 
 const BtnIcon = styled(Icon)`
   font-size: 40px;
@@ -76,27 +97,12 @@ const SearchButton = styled.View`
   position: absolute;
 `;
 
-const SearchBoxContainer = styled.View`
+const SearchBoxContainerStyle = styled.View`
   width: 90%;
   height: 45px;
   overflow: hidden;
   left: 15px;
   top: 15px;
-`;
-
-const SearchBoxStyle = styled(TextInput)`
-  width: 95%;
-  height: 42px;
-  background-color: ${Colors.white};
-  elevation: 2;
-  border: 1px solid ${Colors.black + "11"};
-  border-radius: 20px;
-  font-family: ArabicUI;
-  padding: 0 22px;
-  padding-left: 30px;
-  text-align: right;
-  position: absolute;
-  z-index: 1;
 `;
 
 const SearchText = styled.Text`

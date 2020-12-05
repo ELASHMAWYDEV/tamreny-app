@@ -13,7 +13,7 @@ const Header = ({ title = "Header", navigation, backBtnEnabled = false }) => {
           <ShareIcon name="share" />
         </ShareContainer>
       </TouchableNativeFeedback>
-      <Title>{title}</Title>
+      <Title numberOfLines={1}>{title}</Title>
       {backBtnEnabled ? (
         <TouchableNativeFeedback
           onPress={() => navigation.goBack()}
@@ -78,6 +78,8 @@ const Title = styled.Text`
   font-family: Cairo-SemiBold;
   color: ${Colors.white};
   align-self: center;
+  max-width: 50%;
+  text-align: center;
 `;
 
 const BarContainer = styled.View`

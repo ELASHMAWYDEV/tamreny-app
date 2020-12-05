@@ -2,7 +2,8 @@ import React from "react";
 import { TouchableNativeFeedback } from "react-native";
 import styled from "styled-components";
 import Colors from "../settings/Colors";
-import { LikeBtn, ShareBtn } from "./index";
+import  ShareBtn from "./ShareBtn";
+import  LikeBtn from "./LikeBtn";
 
 const ArticleCard = ({navigation}) => {
   return (

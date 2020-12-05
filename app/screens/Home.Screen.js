@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { Header } from "../components/index";
 import Colors from "../settings/Colors";
 
+
+
 const Home = (props) => {
   return (
     <>

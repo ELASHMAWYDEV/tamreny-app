@@ -1,29 +1,23 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator, CardStyleInterpolator } from "@react-navigation/drawer";
-import CustomDrawer from "../components/CustomDrawer";
+import { createStackNavigator } from "@react-navigation/stack";
 import { Home, Article, Articles, Food, Protein } from "../screens/index";
 
-
-const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 const MainNavigation = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        drawerContent={props => <CustomDrawer {...props}/>}
-        initialRouteName="Home"
-        drawerPosition="right"
-        screenOptions={{
-        }}
-      >
-        <Drawer.Screen name="Home" component={Home} />
-        <Drawer.Screen name="Article" component={Article} />
-        <Drawer.Screen name="Articles" component={Articles} />
-        <Drawer.Screen name="Food" component={Food} />
-        <Drawer.Screen name="Protein" component={Protein} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator initialRouteName="Home"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+        <Stack.Screen name="Home" component={Home} />
+        
+        <Stack.Screen name="Article" component={Article} />
+        <Stack.Screen name="Articles" component={Articles} />
+        <Stack.Screen name="Food" component={Food} />
+        <Stack.Screen name="Protein" component={Protein} />
+      </Stack.Navigator>
   );
 };
 
