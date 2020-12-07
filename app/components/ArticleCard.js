@@ -2,15 +2,18 @@ import React from "react";
 import { TouchableNativeFeedback } from "react-native";
 import styled from "styled-components";
 import Colors from "../settings/Colors";
-import  ShareBtn from "./ShareBtn";
-import  LikeBtn from "./LikeBtn";
+import ShareBtn from "./ShareBtn";
+import LikeBtn from "./LikeBtn";
 
-const ArticleCard = ({navigation}) => {
+const ArticleCard = ({ navigation }) => {
   return (
-    <TouchableNativeFeedback useForeground onPress={() => navigation.navigate("Article")}>
+    <TouchableNativeFeedback
+      useForeground
+      onPress={() => navigation.navigate("Article")}
+    >
       <Container>
         <LikeBtn style={LikeBtnStyle} />
-        <ShareBtn style={ShareBtnStyle}/>
+        <ShareBtn style={ShareBtnStyle} />
         <ArticleImage source={require("../assets/img/article-image.png")} />
         <Title numberOfLines={1}>
           هنا يوضع عنوان المقالة ، ويعتبر هذا النص هو عنوان المدونة التي سيتم

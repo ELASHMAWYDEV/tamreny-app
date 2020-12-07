@@ -19,13 +19,13 @@ const Home = (props) => {
                 <CardText>المقالات</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
-            <TouchableNativeFeedback useForeground>
+            <TouchableNativeFeedback useForeground onPress={() => props.navigation.navigate("Protein")}>
               <SmallCard>
                 <SmallImage source={require("../assets/img/monitoring.png")} />
                 <CardText>حاسبة{"\n"}البروتينات</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
-            <TouchableNativeFeedback useForeground>
+            <TouchableNativeFeedback useForeground onPress={() => props.navigation.navigate("Food")}>
               <SmallCard>
                 <SmallImage source={require("../assets/img/food.png")} />
                 <CardText>القيمة{"\n"}الغذائية</CardText>
@@ -67,7 +67,7 @@ const Home = (props) => {
             <BigImage source={require("../assets/img/gym.png")} />
             <BigCardLeft>
               <CardTitle>الصالات الرياضية</CardTitle>
-              <TouchableNativeFeedback useForeground>
+              <TouchableNativeFeedback useForeground onPress={() => props.navigation.navigate("Gyms")}>
                 <CardBtn>
                   <CardBtnText>معرفة المزيد</CardBtnText>
                 </CardBtn>
