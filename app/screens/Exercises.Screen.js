@@ -4,22 +4,28 @@ import axios from "axios";
 import { API_URL } from "../settings/Config";
 import { Header } from "../components/index";
 import Colors from "../settings/Colors";
-import { ArticleCard, SearchBtn } from "../components/index";
+import { ImageExerciseCard, SearchBtn } from "../components/index";
 
-const Articles = (props) => {
-  const [articles, setArticles] = useState([]);
+const ImageExercises = (props) => {
+  //Get params
+  let { categoryId, name, type } = props.route.params || {};
+
+  const [exercises, setExercises] = useState([]);
 
   useEffect(() => {
-    getArticles();
+    getExercises();
   }, []);
 
-  const getArticles = async () => {
+  const getExercises = async () => {
     try {
-      let response = await axios.post(`${API_URL}/articles/get`);
+      let response = await axios.post(`${API_URL}/exercises/get`, {
+        categoryId,
+        type,
+      });
       let data = await response.data;
 
       if (data.status) {
-        setArticles(data.articles);
+        setExercises(data.exercises);
       } else {
         alert(data.errors);
       }
@@ -30,22 +36,22 @@ const Articles = (props) => {
 
   return (
     <>
-      <Header {...props} title="المقالات" backBtnEnabled />
+      <Header {...props} title={name} backBtnEnabled />
       <MainContainer>
         <SearchBtn style={SearchBtnStyle} />
         <ScrollContainer>
           <Container>
-            {articles.length != 0 &&
-              articles.map(({ title, content, mainImage, _id }) => (
-                <ArticleCard
-                  key={_id}
-                  {...props}
-                  _id={_id}
-                  title={title}
-                  content={content}
-                  mainImage={mainImage}
-                />
-              ))}
+            {exercises.map(({ _id, images, title, description }, i) => (
+              <ImageExerciseCard
+                key={i}
+                {...props}
+                _id={_id}
+                categoryId={categoryId}
+                images={images}
+                title={title}
+                description={description}
+              />
+            ))}
           </Container>
         </ScrollContainer>
       </MainContainer>
@@ -76,4 +82,4 @@ const SearchBtnStyle = styled.View`
   z-index: 6;
 `;
 
-export default Articles;
+export default ImageExercises;

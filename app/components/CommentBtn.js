@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Colors from "../settings/Colors";
 import Icon from "react-native-ionicons";
 
-const ShareBtn = ({ style = styled.View``, size }) => {
+const CommentBtn = ({ style = styled.View``, size }) => {
   const Container = styled(style)`
     width: ${size || 45}px;
     height: ${size || 45}px;
@@ -17,7 +17,7 @@ const ShareBtn = ({ style = styled.View``, size }) => {
     overflow: hidden;
   `;
 
-  const ShareIcon = styled(Icon)`
+  const CommentIcon = styled(Icon)`
     font-size: ${size / 1.6 || 32}px;
     left: 1px;
     color: ${Colors.primary};
@@ -26,10 +26,10 @@ const ShareBtn = ({ style = styled.View``, size }) => {
   return (
     <TouchableNativeFeedback useForeground onPress={() => null}>
       <Container>
-        <ShareIcon name="share" />
+        <CommentIcon name="ios-chatbubbles" />
       </Container>
     </TouchableNativeFeedback>
   );
 };
 
-export default ShareBtn;
+export default CommentBtn;

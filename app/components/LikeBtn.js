@@ -4,8 +4,7 @@ import styled from "styled-components";
 import Colors from "../settings/Colors";
 import Icon from "react-native-ionicons";
 
-
-const LikeBtn = ({ liked = false,  style = styled.View`` }) => {
+const LikeBtn = ({ liked = false, style = styled.View``, size }) => {
   const [isLiked, setIsLiked] = useState(liked);
   const [pressAnim] = useState(new Animated.Value(0.9));
 
@@ -26,15 +25,22 @@ const LikeBtn = ({ liked = false,  style = styled.View`` }) => {
   };
 
   const Container = styled(style)`
-    width: 45px;
-    height: 45px;
-    border-radius: 30px;
+    width: ${size || 45}px;
+    height: ${size || 45}px;
+    border-radius: ${size / 2 || 30}px;
     border: 1px solid ${Colors.black + "11"};
     background-color: ${Colors.white};
     align-items: center;
     justify-content: center;
     elevation: 8;
   `;
+
+  const LikeIconStyled = styled(Icon)`
+    font-size: ${size / 1.4 || 32}px;
+    top: 2px;
+  `;
+
+  const LikeIcon = Animated.createAnimatedComponent(LikeIconStyled);
 
   return (
     <TouchableWithoutFeedback useForeground onPress={pressLike}>
@@ -48,12 +54,5 @@ const LikeBtn = ({ liked = false,  style = styled.View`` }) => {
     </TouchableWithoutFeedback>
   );
 };
-
-const LikeIconStyled = styled(Icon)`
-  font-size: 32px;
-  top: 2px;
-`;
-
-const LikeIcon = Animated.createAnimatedComponent(LikeIconStyled);
 
 export default LikeBtn;

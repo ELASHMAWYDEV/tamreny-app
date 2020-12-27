@@ -1,38 +1,68 @@
-import React from "react";
-import { Header } from "../components/index";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Autolink from "react-native-autolink";
+import axios from "axios";
+import { API_URL } from "../settings/Config";
 import Colors from "../settings/Colors";
+import { Header, ReactBtn } from "../components/index";
 
 const Article = (props) => {
+  //Set the article data from params
+  const { _id } = props.route.params;
+
+  const [article, setArticle] = useState({});
+
+  useEffect(() => {
+    getArticle();
+  }, []);
+
+  const getArticle = async () => {
+    try {
+      let response = await axios.post(`${API_URL}/articles/get`, { _id });
+      let data = await response.data;
+
+      if (data.status) {
+        setArticle(data.articles[0]);
+      } else {
+        alert(data.errors);
+      }
+    } catch (e) {
+      alert(e.message);
+    }
+  };
+
+  const formatTime = (time) => {
+    let days = new Date(time).getDate();
+    let month = new Date(time).getMonth() + 1;
+    let year = new Date(time).getFullYear();
+
+    return `${days}/${month}/${year}`;
+  };
+
   return (
     <>
-      <Header
-        {...props}
-        title="هنا يوضع عنوان المقالة ، ويعتبر هذا النص عن العنوان"
-        backBtnEnabled
-      />
+      <Header {...props} title={article.title} backBtnEnabled />
+      <ReactBtn />
       <ScrollContainer>
         <MainContainer>
           <Container>
-            <Title>هنا يوضع عنوان المقالة ، ويعتبر هذا النص عن العنوان</Title>
+            <Title>{article.title}</Title>
             <MainImageContainer>
-              <MainImage source={require("../assets/img/article-image.png")} />
+              <MainImage source={{ uri: article.mainImage }} />
             </MainImageContainer>
-            <Content>
-              هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد
-              هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو
-              العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها
-              التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص
-              العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي
-              أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص،
-              حيث يحتاج العميل فى كثير من الأحيان أن يطلع على صورة حقيقية لتصميم
-              الموقع. ومن هنا وجب على المصمم أن يضع نصوصا مؤقتة على التصميم
-              ليظهر للعميل الشكل كاملاً،دور مولد النص العربى أن يوفر على المصمم
-              عناء البحث عن نص بديل لا علاقة له بالموضوع الذى يتحدث عنه التصميم
-              فيظهر بشكل لا يليق. هذا النص يمكن أن يتم تركيبه على أي تصميم دون
-              مشكلة فلن يبدو وكأنه نص منسوخ، غير منظم، غير منسق، أو حتى غير
-              مفهوم. لأنه مازال نصاً بديلاً ومؤقتاً.
+            <Content
+              style={{
+                marginBottom: 20,
+                borderBottomWidth: 2,
+                borderBottomColor: Colors.darkGray,
+                borderRadius: 50,
+                textAlign: "center",
+              }}
+            >
+              تاريخ النشر :{" "}
+              <CreateDate>{formatTime(article.createDate)}</CreateDate>
             </Content>
+            <Autolink text={article.content} component={Content} />
           </Container>
         </MainContainer>
       </ScrollContainer>
@@ -54,6 +84,7 @@ const Container = styled.View`
   border: 1px ${Colors.black + "11"};
   border-radius: 12px;
   padding: 18px 15px;
+  padding-bottom: 70px;
 `;
 
 const Title = styled.Text`
@@ -76,13 +107,17 @@ const MainImageContainer = styled.View`
   overflow: hidden;
   width: 100%;
   height: 200px;
+  margin: 0 0 25px;
 `;
 
 const Content = styled.Text`
   font-size: 18px;
   font-family: ArabicUI;
   line-height: 34px;
-  margin: 25px 0;
+`;
+
+const CreateDate = styled(Content)`
+  color: ${Colors.darkGray};
 `;
 
 export default Article;

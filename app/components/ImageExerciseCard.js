@@ -4,23 +4,37 @@ import styled from "styled-components";
 import Colors from "../settings/Colors";
 import ShareBtn from "./ShareBtn";
 import LikeBtn from "./LikeBtn";
+import { SliderBox } from "react-native-image-slider-box";
 
-const ArticleCard = ({ navigation, title, content, mainImage, _id }) => {
+const ImageExerciseCard = ({
+  navigation,
+  _id,
+  images = [],
+  title,
+  description,
+  categoryId,
+}) => {
   return (
     <TouchableNativeFeedback
       useForeground
-      onPress={() =>
-        navigation.navigate("Article", {
-          _id,
-        })
-      }
+      onPress={() => navigation.navigate("Gym", { _id })}
     >
       <Container>
         <LikeBtn style={LikeBtnStyle} />
         <ShareBtn style={ShareBtnStyle} />
-        <ArticleImage source={{ uri: mainImage }} />
+        <SliderContainer>
+          <SliderBox
+            images={images}
+            disableOnPress
+            sliderBoxHeight={170}
+            dotColor={Colors.primary}
+            inactiveDotColor={Colors.black + "89"}
+            circleLoop
+            imageLoadingColor={Colors.primary}
+          />
+        </SliderContainer>
         <Title numberOfLines={1}>{title}</Title>
-        <Description numberOfLines={2}>{content}</Description>
+        <Description numberOfLines={1}>{description}</Description>
       </Container>
     </TouchableNativeFeedback>
   );
@@ -28,7 +42,7 @@ const ArticleCard = ({ navigation, title, content, mainImage, _id }) => {
 
 const Container = styled.View`
   width: 100%;
-  height: 250px;
+  height: 230px;
   border-radius: 10px;
   background-color: ${Colors.white};
   elevation: 10;
@@ -37,26 +51,29 @@ const Container = styled.View`
   overflow: hidden;
 `;
 
-const ArticleImage = styled.Image`
+const SliderContainer = styled.View`
   width: 102%;
-  height: 60%;
+  height: 70%;
+  border-bottom-width: 1px;
+  border-bottom-color: ${Colors.black + "22"};
 `;
 
 const Title = styled.Text`
   font-size: 18px;
-  font-family: Cairo-SemiBold;
-  line-height: 24px;
-  margin: 14px 12px 5px 30px;
+  font-family: Cairo-Bold;
+  line-height: 30px;
+  margin-top: 5px;
+  text-align: center;
 `;
 
 const Description = styled.Text`
   font-size: 14px;
-  line-height: 22px;
   font-family: ArabicUI;
-  margin: 0px 12px 5px 30px;
+  margin: 0 10px;
+  line-height: 26px;
   color: ${Colors.darkGray};
+  text-align: center;
 `;
-
 const LikeBtnStyle = styled.View`
   position: absolute;
   z-index: 5;
@@ -68,4 +85,4 @@ const ShareBtnStyle = styled(LikeBtnStyle)`
   left: 10px;
 `;
 
-export default ArticleCard;
+export default ImageExerciseCard;

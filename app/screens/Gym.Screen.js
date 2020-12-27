@@ -1,13 +1,14 @@
 import React from "react";
-import { Header } from "../components/index";
 import styled from "styled-components";
 import { SliderBox } from "react-native-image-slider-box";
 import Colors from "../settings/Colors";
+import { Header, ReactBtn } from "../components/index";
 
 const Gym = (props) => {
   return (
     <>
       <Header {...props} title="قاعة بغداد" backBtnEnabled />
+      <ReactBtn />
       <ScrollContainer>
         <MainContainer>
           <Container>

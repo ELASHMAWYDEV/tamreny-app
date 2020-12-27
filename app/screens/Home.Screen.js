@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { Header } from "../components/index";
 import Colors from "../settings/Colors";
 
-
-
 const Home = (props) => {
   return (
     <>
@@ -13,22 +11,31 @@ const Home = (props) => {
       <ScrollContainer>
         <Container>
           <SmallCardsContainer>
-            <TouchableNativeFeedback useForeground onPress={() => props.navigation.navigate("Articles")}>
+            <TouchableNativeFeedback
+              useForeground
+              onPress={() => props.navigation.navigate("Food")}
+            >
               <SmallCard>
-                <SmallImage source={require("../assets/img/blog.png")} />
-                <CardText>المقالات</CardText>
+                <SmallImage source={require("../assets/img/food.png")} />
+                <CardText>القيمة{"\n"}الغذائية</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
-            <TouchableNativeFeedback useForeground onPress={() => props.navigation.navigate("Protein")}>
+            <TouchableNativeFeedback
+              useForeground
+              onPress={() => props.navigation.navigate("Protein")}
+            >
               <SmallCard>
                 <SmallImage source={require("../assets/img/monitoring.png")} />
                 <CardText>حاسبة{"\n"}البروتينات</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
-            <TouchableNativeFeedback useForeground onPress={() => props.navigation.navigate("Food")}>
+            <TouchableNativeFeedback
+              useForeground
+              onPress={() => props.navigation.navigate("Articles")}
+            >
               <SmallCard>
-                <SmallImage source={require("../assets/img/food.png")} />
-                <CardText>القيمة{"\n"}الغذائية</CardText>
+                <SmallImage source={require("../assets/img/blog.png")} />
+                <CardText>المقالات</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
           </SmallCardsContainer>
@@ -44,10 +51,19 @@ const Home = (props) => {
             </BigCardLeft>
           </BigCard>
           <SmallCardsContainer>
-            <TouchableNativeFeedback useForeground>
+            <TouchableNativeFeedback
+              useForeground
+              onPress={
+                () =>
+                  props.navigation.navigate("ExercisesCats", {
+                    type: 2,
+                    title: "تمارين جاهزة",
+                  }) //type = 2 => Video Exercises
+              }
+            >
               <SmallCard>
-                <SmallImage source={require("../assets/img/fitness.png")} />
-                <CardText>تمارين{"\n"}رياضية</CardText>
+                <SmallImage source={require("../assets/img/strength.png")} />
+                <CardText>تمارين{"\n"}جاهزة</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
             <TouchableNativeFeedback useForeground>
@@ -56,10 +72,19 @@ const Home = (props) => {
                 <CardText>المكملات{"\n"}الغذائية</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
-            <TouchableNativeFeedback useForeground>
+            <TouchableNativeFeedback
+              useForeground
+              onPress={
+                () =>
+                  props.navigation.navigate("ExercisesCats", {
+                    type: 1,
+                    title: "تمارين رياضية",
+                  }) //type = 1 => Image Exercises
+              }
+            >
               <SmallCard>
-                <SmallImage source={require("../assets/img/strength.png")} />
-                <CardText>تمارين{"\n"}جاهزة</CardText>
+                <SmallImage source={require("../assets/img/fitness.png")} />
+                <CardText>تمارين{"\n"}رياضية</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
           </SmallCardsContainer>
@@ -67,7 +92,10 @@ const Home = (props) => {
             <BigImage source={require("../assets/img/gym.png")} />
             <BigCardLeft>
               <CardTitle>الصالات الرياضية</CardTitle>
-              <TouchableNativeFeedback useForeground onPress={() => props.navigation.navigate("Gyms")}>
+              <TouchableNativeFeedback
+                useForeground
+                onPress={() => props.navigation.navigate("Gyms")}
+              >
                 <CardBtn>
                   <CardBtnText>معرفة المزيد</CardBtnText>
                 </CardBtn>
@@ -91,7 +119,7 @@ const Container = styled.View`
 `;
 
 const SmallCardsContainer = styled.View`
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: space-between;
   margin: 10px 0;
 `;

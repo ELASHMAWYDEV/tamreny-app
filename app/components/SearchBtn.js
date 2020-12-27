@@ -1,5 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Animated, TouchableNativeFeedback, TextInput, StyleSheet } from "react-native";
+import {
+  Animated,
+  TouchableNativeFeedback,
+  TextInput,
+  StyleSheet,
+} from "react-native";
 import styled from "styled-components";
 import Colors from "../settings/Colors";
 import Icon from "react-native-ionicons";

@@ -7,3 +7,6 @@ export { default as LikeBtn } from "./LikeBtn";
 export { default as ShareBtn } from "./ShareBtn";
 export { default as SearchBtn } from "./SearchBtn";
 export { default as SelectInput } from "./SelectInput";
+export { default as ReactBtn } from "./ReactBtn";
+export { default as CommentBtn } from "./CommentBtn";
+export { default as ImageExerciseCard } from "./ImageExerciseCard";
