@@ -1,12 +1,14 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
-import { Header } from "../components/index";
-import Colors from "../settings/Colors";
-import { ImageExerciseCard, SearchBtn } from "../components/index";
+import { Header, ExerciseCard, SearchBtn } from "../components/index";
+import { useThemeContext } from "../helpers/AppProvider";
 
 const ImageExercises = (props) => {
+  const Theme = useThemeContext();
+  let Colors = Theme.Colors;
   //Get params
   let { categoryId, name, type } = props.route.params || {};
 
@@ -34,6 +36,31 @@ const ImageExercises = (props) => {
     }
   };
 
+  /******************************************************/
+  const ScrollContainer = styled.ScrollView`
+    background-color: ${Colors.white};
+    min-height: 100%;
+  `;
+
+  const MainContainer = styled.View`
+    flex: 1;
+    background-color: ${Colors.white};
+  `;
+
+  const Container = styled.View`
+    flex: 1;
+    background-color: ${Colors.white};
+    padding: 20px 15px;
+  `;
+
+  const SearchBtnStyle = styled.View`
+    position: absolute;
+    bottom: 15px;
+    left: 18px;
+    z-index: 6;
+  `;
+
+  /******************************************************/
   return (
     <>
       <Header {...props} title={name} backBtnEnabled />
@@ -42,7 +69,7 @@ const ImageExercises = (props) => {
         <ScrollContainer>
           <Container>
             {exercises.map(({ _id, images, title, description }, i) => (
-              <ImageExerciseCard
+              <ExerciseCard
                 key={i}
                 {...props}
                 _id={_id}
@@ -50,6 +77,7 @@ const ImageExercises = (props) => {
                 images={images}
                 title={title}
                 description={description}
+                type={type}
               />
             ))}
           </Container>
@@ -58,28 +86,5 @@ const ImageExercises = (props) => {
     </>
   );
 };
-
-const ScrollContainer = styled.ScrollView`
-  background-color: ${Colors.white};
-  min-height: 100%;
-`;
-
-const MainContainer = styled.View`
-  flex: 1;
-  background-color: ${Colors.white};
-`;
-
-const Container = styled.View`
-  flex: 1;
-  background-color: ${Colors.white};
-  padding: 20px 15px;
-`;
-
-const SearchBtnStyle = styled.View`
-  position: absolute;
-  bottom: 15px;
-  left: 18px;
-  z-index: 6;
-`;
 
 export default ImageExercises;

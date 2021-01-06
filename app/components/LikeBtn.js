@@ -1,10 +1,14 @@
+// @ts-nocheck
 import React, { useState } from "react";
 import { TouchableWithoutFeedback, Animated } from "react-native";
 import styled from "styled-components";
-import Colors from "../settings/Colors";
 import Icon from "react-native-ionicons";
+import { useThemeContext } from "../helpers/AppProvider";
 
 const LikeBtn = ({ liked = false, style = styled.View``, size }) => {
+  const Theme = useThemeContext();
+  let Colors = Theme.Colors;
+
   const [isLiked, setIsLiked] = useState(liked);
   const [pressAnim] = useState(new Animated.Value(0.9));
 
@@ -24,6 +28,8 @@ const LikeBtn = ({ liked = false, style = styled.View``, size }) => {
     ]).start();
   };
 
+  /******************************************************/
+
   const Container = styled(style)`
     width: ${size || 45}px;
     height: ${size || 45}px;
@@ -41,6 +47,8 @@ const LikeBtn = ({ liked = false, style = styled.View``, size }) => {
   `;
 
   const LikeIcon = Animated.createAnimatedComponent(LikeIconStyled);
+
+  /******************************************************/
 
   return (
     <TouchableWithoutFeedback useForeground onPress={pressLike}>

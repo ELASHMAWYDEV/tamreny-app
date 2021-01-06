@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -7,9 +8,7 @@ import {
   Modal,
   ScrollView,
 } from "react-native";
-
-//Globals
-import Colors from "../settings/Colors";
+import { useThemeContext } from "../helpers/AppProvider";
 
 const SelectInput = ({
   value,
@@ -23,17 +22,60 @@ const SelectInput = ({
     },
   ],
 }) => {
-  [value, setValue] = useState(value || selection[0].value);
+  const Theme = useThemeContext();
+  let Colors = Theme.Colors;
+  const [selectedValue, setValue] = useState(value || selection[0].value);
 
-  toggleModal = () => {
+  const toggleModal = () => {
     toggleSelection();
   };
 
-  changeValue = (value) => {
+  const changeValue = (value) => {
     setValue(value);
     onSelectValue(value);
     toggleModal();
   };
+
+  /******************************************************/
+
+  const styles = StyleSheet.create({
+    modalContainer: {
+      backgroundColor: "rgba(0,0,0,0.4)",
+      flex: 1,
+    },
+    itemsContainer: {
+      position: "absolute",
+      bottom: 0,
+      width: "100%",
+      backgroundColor: Colors.primary,
+      borderTopLeftRadius: 40,
+      borderTopRightRadius: 40,
+      overflow: "hidden",
+      paddingTop: 40,
+      paddingBottom: 20,
+    },
+    itemContainer: {
+      padding: 10,
+    },
+    itemLabel: {
+      fontFamily: "Cairo-SemiBold",
+      fontSize: 20,
+      textAlign: "center",
+      textAlignVertical: "center",
+      color: Colors.white,
+    },
+    separator: {
+      width: "90%",
+      height: 2,
+      backgroundColor: Colors.primary,
+      borderRadius: 10,
+      alignSelf: "center",
+    },
+    selectedValue: {
+      backgroundColor: Colors.black,
+    },
+  });
+  /******************************************************/
 
   return (
     <Modal
@@ -54,7 +96,7 @@ const SelectInput = ({
                 <View
                   style={[
                     styles.itemContainer,
-                    value == item.value && styles.selectedValue,
+                    selectedValue == item.value && styles.selectedValue,
                   ]}
                 >
                   <Text style={styles.itemLabel}>{item.label}</Text>
@@ -70,43 +112,5 @@ const SelectInput = ({
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  modalContainer: {
-    backgroundColor: "rgba(0,0,0,0.4)",
-    flex: 1,
-  },
-  itemsContainer: {
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-    backgroundColor: Colors.primary,
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    overflow: "hidden",
-    paddingTop: 40,
-    paddingBottom: 20,
-  },
-  itemContainer: {
-    padding: 10,
-  },
-  itemLabel: {
-    fontFamily: "Cairo-SemiBold",
-    fontSize: 20,
-    textAlign: "center",
-    textAlignVertical: "center",
-    color: Colors.white,
-  },
-  separator: {
-    width: "90%",
-    height: 2,
-    backgroundColor: Colors.primary,
-    borderRadius: 10,
-    alignSelf: "center",
-  },
-  selectedValue: {
-    backgroundColor: Colors.black,
-  },
-});
 
 export default SelectInput;

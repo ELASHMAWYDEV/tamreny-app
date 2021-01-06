@@ -1,12 +1,16 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
 import { Header } from "../components/index";
-import Colors from "../settings/Colors";
 import { ArticleCard, SearchBtn } from "../components/index";
+import { useThemeContext } from "../helpers/AppProvider";
 
 const Articles = (props) => {
+  const Theme = useThemeContext();
+  let Colors = Theme.Colors;
+
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -27,6 +31,32 @@ const Articles = (props) => {
       console.log(e);
     }
   };
+
+  /******************************************************/
+  const ScrollContainer = styled.ScrollView`
+    background-color: ${Colors.white};
+    min-height: 100%;
+  `;
+
+  const MainContainer = styled.View`
+    flex: 1;
+    background-color: ${Colors.white};
+  `;
+
+  const Container = styled.View`
+    flex: 1;
+    background-color: ${Colors.white};
+    padding: 20px 15px;
+  `;
+
+  const SearchBtnStyle = styled.View`
+    position: absolute;
+    bottom: 15px;
+    left: 18px;
+    z-index: 6;
+  `;
+
+  /******************************************************/
 
   return (
     <>
@@ -52,28 +82,5 @@ const Articles = (props) => {
     </>
   );
 };
-
-const ScrollContainer = styled.ScrollView`
-  background-color: ${Colors.white};
-  min-height: 100%;
-`;
-
-const MainContainer = styled.View`
-  flex: 1;
-  background-color: ${Colors.white};
-`;
-
-const Container = styled.View`
-  flex: 1;
-  background-color: ${Colors.white};
-  padding: 20px 15px;
-`;
-
-const SearchBtnStyle = styled.View`
-  position: absolute;
-  bottom: 15px;
-  left: 18px;
-  z-index: 6;
-`;
 
 export default Articles;

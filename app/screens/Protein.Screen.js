@@ -1,11 +1,15 @@
+// @ts-nocheck
 import React, { useState } from "react";
 import { TouchableNativeFeedback } from "react-native";
 import { Header, SelectInput } from "../components/index";
 import styled from "styled-components";
-import Colors from "../settings/Colors";
 import { RadioButton } from "react-native-paper";
+import { useThemeContext } from "../helpers/AppProvider";
 
 const Protein = (props) => {
+  const Theme = useThemeContext();
+  let Colors = Theme.Colors;
+
   const [gender, setGender] = useState("male");
   const [optionOne, setOptionOne] = useState(1);
   const [optionTwo, setOptionTwo] = useState(1);
@@ -31,6 +35,113 @@ const Protein = (props) => {
     },
   ];
 
+  /******************************************************/
+
+  const MainContainer = styled.View`
+    flex: 1;
+    padding: 10px 8px;
+  `;
+
+  const ScrollContainer = styled.ScrollView``;
+
+  const Container = styled.View`
+    flex: 1;
+    background-color: ${Colors.white};
+    elevation: 10;
+    border: 1px ${Colors.black + "11"};
+    border-radius: 12px;
+    padding: 18px 15px;
+    padding-bottom: 30px;
+  `;
+
+  const RowContainer = styled.View`
+    flex-direction: row-reverse;
+    margin-bottom: 30px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  `;
+
+  const Title = styled.Text`
+    font-family: Cairo-SemiBold;
+    font-size: 20px;
+    color: ${Colors.black};
+  `;
+
+  const NormalText = styled.Text`
+    font-family: Cairo-Regular;
+    font-size: 18px;
+    color: ${Colors.black};
+  `;
+
+  const RoundedInput = styled.View`
+    background-color: ${Colors.lightGray};
+    border-radius: 30px;
+    border: 1px ${Colors.black + "11"};
+    elevation: 3;
+    flex-direction: row-reverse;
+    padding: 5px 15px;
+    width: 30%;
+  `;
+
+  const Input = styled.TextInput`
+    background-color: transparent;
+    text-align: center;
+    font-family: Cairo-Regular;
+    font-size: 18px;
+    width: 100%;
+  `;
+
+  const InputDesc = styled(NormalText)`
+    font-size: 12px;
+  `;
+
+  const SelectRounded = styled.View`
+    background-color: ${Colors.lightGray};
+    border-radius: 30px;
+    border: 1px ${Colors.black + "11"};
+    padding: 5px 30px;
+    elevation: 3;
+    width: 100%;
+    overflow: hidden;
+    align-items: center;
+    padding-left: 30px;
+  `;
+
+  const SelectArrow = styled.View`
+    border: 6px transparent;
+    border-top-width: 12px;
+    border-top-color: ${Colors.black};
+    position: absolute;
+    left: 20px;
+    top: 50%;
+  `;
+
+  const CalculateBtn = styled(SelectRounded)`
+    background-color: ${Colors.primary};
+    padding: 5px 30px;
+    border: 1px ${Colors.primary + "11"};
+    margin-top: 50px;
+  `;
+
+  const LineSeparator = styled.View`
+    width: 80%;
+    height: 3px;
+    align-self: center;
+    background-color: ${Colors.black};
+    opacity: 0.5;
+    border-radius: 15px;
+    margin-top: -15px;
+  `;
+
+  const ResultText = styled(Title)`
+    margin-left: auto;
+    transform: translateX(10px);
+    color: ${Colors.red};
+    font-size: 22px;
+  `;
+
+  /******************************************************/
   return (
     <>
       <Header {...props} title="حاسبة البروتينات" backBtnEnabled />
@@ -151,107 +262,4 @@ const Protein = (props) => {
   );
 };
 
-const MainContainer = styled.View`
-  flex: 1;
-  padding: 10px 8px;
-`;
-
-const ScrollContainer = styled.ScrollView``;
-
-const Container = styled.View`
-  flex: 1;
-  background-color: ${Colors.white};
-  elevation: 10;
-  border: 1px ${Colors.black + "11"};
-  border-radius: 12px;
-  padding: 18px 15px;
-  padding-bottom: 30px;
-`;
-
-const RowContainer = styled.View`
-  flex-direction: row-reverse;
-  margin-bottom: 30px;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Title = styled.Text`
-  font-family: Cairo-SemiBold;
-  font-size: 20px;
-  color: ${Colors.black};
-`;
-
-const NormalText = styled.Text`
-  font-family: Cairo-Regular;
-  font-size: 18px;
-  color: ${Colors.black};
-`;
-
-const RoundedInput = styled.View`
-  background-color: ${Colors.lightGray};
-  border-radius: 30px;
-  border: 1px ${Colors.black + "11"};
-  elevation: 3;
-  flex-direction: row-reverse;
-  padding: 5px 15px;
-  width: 30%;
-`;
-
-const Input = styled.TextInput`
-  background-color: transparent;
-  text-align: center;
-  font-family: Cairo-Regular;
-  font-size: 18px;
-  width: 100%;
-`;
-
-const InputDesc = styled(NormalText)`
-  font-size: 12px;
-`;
-
-const SelectRounded = styled.View`
-  background-color: ${Colors.lightGray};
-  border-radius: 30px;
-  border: 1px ${Colors.black + "11"};
-  padding: 5px 30px;
-  elevation: 3;
-  width: 100%;
-  overflow: hidden;
-  align-items: center;
-  padding-left: 30px;
-`;
-
-const SelectArrow = styled.View`
-  border: 6px transparent;
-  border-top-width: 12px;
-  border-top-color: ${Colors.black};
-  position: absolute;
-  left: 20px;
-  top: 50%;
-`;
-
-const CalculateBtn = styled(SelectRounded)`
-  background-color: ${Colors.primary};
-  padding: 5px 30px;
-  border: 1px ${Colors.primary + "11"};
-  margin-top: 50px;
-`;
-
-const LineSeparator = styled.View`
-  width: 80%;
-  height: 3px;
-  align-self: center;
-  background-color: ${Colors.black};
-  opacity: 0.5;
-  border-radius: 15px;
-  margin-top: -15px;
-`;
-
-const ResultText = styled(Title)`
-  margin-left: auto;
-  transform: translateX(10px);
-  color: ${Colors.red};
-  font-size: 22px;
-`;
 export default Protein;

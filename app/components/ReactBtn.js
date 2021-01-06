@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from "react";
 import {
   TouchableNativeFeedback,
@@ -5,12 +6,15 @@ import {
   Animated,
 } from "react-native";
 import styled from "styled-components";
-import Colors from "../settings/Colors";
 import LikeBtn from "./LikeBtn";
 import ShareBtn from "./ShareBtn";
 import CommentBtn from "./CommentBtn";
+import { useThemeContext } from "../helpers/AppProvider";
 
 const ReactBtn = () => {
+  const Theme = useThemeContext();
+  let Colors = Theme.Colors;
+
   const [expanded, setExpanded] = useState(false);
   const [pressAnim1] = useState(new Animated.Value(10));
   const [pressAnim2] = useState(new Animated.Value(10));
@@ -36,11 +40,47 @@ const ReactBtn = () => {
       useNativeDriver: false,
     }).start();
   };
-
+  /******************************************************/
   const BtnContainerStyle = styled.View`
     position: absolute;
     z-index: 2;
   `;
+
+  const Container = styled.View`
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    width: 70px;
+    z-index: 1;
+    align-items: center;
+    justify-content: flex-end;
+  `;
+
+  const Circle = styled.View`
+    width: ${(props) => props.size || 70}px;
+    height: ${(props) => props.size || 70}px;
+    border-radius: ${(props) => props.size / 2 || 35}px;
+    border: 1px solid ${Colors.black + "11"};
+    background-color: ${(props) => props.color || Colors.primary};
+    align-items: center;
+    justify-content: center;
+    elevation: ${(props) => (props.shadow ? 8 : 0)};
+    overflow: hidden;
+    z-index: 2;
+    background-color: ${(props) => props.color || Colors.primary};
+  `;
+
+  const SmallCircle = styled.View`
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: 4px solid ${Colors.white + "80"};
+    background-color: ${Colors.white};
+    align-items: center;
+    justify-content: center;
+  `;
+
+  /******************************************************/
 
   const BtnContainer = Animated.createAnimatedComponent(BtnContainerStyle);
 
@@ -71,39 +111,5 @@ const ReactBtn = () => {
     </TouchableWithoutFeedback>
   );
 };
-
-const Container = styled.View`
-  position: absolute;
-  bottom: 25px;
-  left: 25px;
-  width: 70px;
-  z-index: 1;
-  align-items: center;
-  justify-content: flex-end;
-`;
-
-const Circle = styled.View`
-  width: ${(props) => props.size || 70}px;
-  height: ${(props) => props.size || 70}px;
-  border-radius: ${(props) => props.size / 2 || 35}px;
-  border: 1px solid ${Colors.black + "11"};
-  background-color: ${(props) => props.color || Colors.primary};
-  align-items: center;
-  justify-content: center;
-  elevation: ${(props) => (props.shadow ? 8 : 0)};
-  overflow: hidden;
-  z-index: 2;
-  background-color: ${(props) => props.color || Colors.primary};
-`;
-
-const SmallCircle = styled.View`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  border: 4px solid ${Colors.white + "80"};
-  background-color: ${Colors.white};
-  align-items: center;
-  justify-content: center;
-`;
 
 export default ReactBtn;

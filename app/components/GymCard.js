@@ -1,12 +1,75 @@
+// @ts-nocheck
 import React from "react";
 import { TouchableNativeFeedback } from "react-native";
 import styled from "styled-components";
-import Colors from "../settings/Colors";
 import ShareBtn from "./ShareBtn";
 import LikeBtn from "./LikeBtn";
 import { SliderBox } from "react-native-image-slider-box";
+import { useThemeContext } from "../helpers/AppProvider";
 
 const GymCard = ({ navigation }) => {
+  const Theme = useThemeContext();
+  let Colors = Theme.Colors;
+
+  /******************************************************/
+  const Container = styled.View`
+    width: 100%;
+    height: 240px;
+    border-radius: 10px;
+    background-color: ${Colors.white};
+    elevation: 10;
+    margin-bottom: 15px;
+    border: 1px solid ${Colors.black + "11"};
+    overflow: hidden;
+  `;
+
+  const SliderContainer = styled.View`
+    width: 102%;
+    height: 60%;
+  `;
+
+  const Title = styled.Text`
+    font-size: 20px;
+    font-family: Cairo-Bold;
+    margin-right: 8px;
+  `;
+
+  const NormalText = styled.Text`
+    font-size: 18px;
+    line-height: 22px;
+    font-family: ArabicUI;
+    color: ${Colors.black};
+    opacity: 0.9;
+    margin-right: 8px;
+  `;
+
+  const LikeBtnStyle = styled.View`
+    position: absolute;
+    z-index: 5;
+    top: 10px;
+    right: 10px;
+  `;
+
+  const ShareBtnStyle = styled(LikeBtnStyle)`
+    left: 10px;
+  `;
+
+  const SmallImage = styled.Image`
+    width: 25px;
+    height: 30px;
+    opacity: 0.7;
+    resize-mode: contain;
+  `;
+
+  const RowContainer = styled.View`
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 15px;
+  `;
+
+  /******************************************************/
+
   return (
     <TouchableNativeFeedback
       useForeground
@@ -60,61 +123,5 @@ const GymCard = ({ navigation }) => {
     </TouchableNativeFeedback>
   );
 };
-
-const Container = styled.View`
-  width: 100%;
-  height: 240px;
-  border-radius: 10px;
-  background-color: ${Colors.white};
-  elevation: 10;
-  margin-bottom: 15px;
-  border: 1px solid ${Colors.black + "11"};
-  overflow: hidden;
-`;
-
-const SliderContainer = styled.View`
-  width: 102%;
-  height: 60%;
-`;
-
-const Title = styled.Text`
-  font-size: 20px;
-  font-family: Cairo-Bold;
-  margin-right: 8px;
-`;
-
-const NormalText = styled.Text`
-  font-size: 18px;
-  line-height: 22px;
-  font-family: ArabicUI;
-  color: ${Colors.black};
-  opacity: 0.9;
-  margin-right: 8px;
-`;
-
-const LikeBtnStyle = styled.View`
-  position: absolute;
-  z-index: 5;
-  top: 10px;
-  right: 10px;
-`;
-
-const ShareBtnStyle = styled(LikeBtnStyle)`
-  left: 10px;
-`;
-
-const SmallImage = styled.Image`
-  width: 25px;
-  height: 30px;
-  opacity: 0.7;
-  resize-mode: contain;
-`;
-
-const RowContainer = styled.View`
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
-  margin-right: 15px;
-`;
 
 export default GymCard;

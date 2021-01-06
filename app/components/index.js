@@ -9,4 +9,6 @@ export { default as SearchBtn } from "./SearchBtn";
 export { default as SelectInput } from "./SelectInput";
 export { default as ReactBtn } from "./ReactBtn";
 export { default as CommentBtn } from "./CommentBtn";
-export { default as ImageExerciseCard } from "./ImageExerciseCard";
+export { default as ExerciseCard } from "./ExerciseCard";
+export { default as ImageSlider } from "./ImageSlider";
+export { default as ChangeColor } from "./ChangeColor";

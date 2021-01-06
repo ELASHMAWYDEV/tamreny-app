@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+// @ts-nocheck
+import React from "react";
 import { TouchableNativeFeedback } from "react-native";
 import styled from "styled-components";
-import Colors from "../settings/Colors";
 import Icon from "react-native-ionicons";
+import { useThemeContext } from "../helpers/AppProvider";
 
 const ShareBtn = ({ style = styled.View``, size }) => {
+  const Theme = useThemeContext();
+  let Colors = Theme.Colors;
+
+  /******************************************************/
   const Container = styled(style)`
     width: ${size || 45}px;
     height: ${size || 45}px;
@@ -23,6 +28,8 @@ const ShareBtn = ({ style = styled.View``, size }) => {
     color: ${Colors.primary};
     transform: rotateY(-180deg);
   `;
+
+  /******************************************************/
   return (
     <TouchableNativeFeedback useForeground onPress={() => null}>
       <Container>

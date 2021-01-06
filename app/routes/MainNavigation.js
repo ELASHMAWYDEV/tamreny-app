@@ -9,7 +9,8 @@ import {
   Gyms,
   Gym,
   ExercisesCats,
-  Exercises
+  Exercises,
+  Exercise,
 } from "../screens/index";
 
 const Stack = createStackNavigator();
@@ -32,6 +33,7 @@ const MainNavigation = () => {
       <Stack.Screen name="Gym" component={Gym} />
       <Stack.Screen name="ExercisesCats" component={ExercisesCats} />
       <Stack.Screen name="Exercises" component={Exercises} />
+      <Stack.Screen name="Exercise" component={Exercise} />
     </Stack.Navigator>
   );
 };

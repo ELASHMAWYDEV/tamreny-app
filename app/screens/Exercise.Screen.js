@@ -4,43 +4,39 @@ import styled from "styled-components";
 import Autolink from "react-native-autolink";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
-import { Header, ReactBtn } from "../components/index";
+import { Header, ReactBtn, ImageSlider } from "../components/index";
+import { SliderBox } from "react-native-image-slider-box";
 import { useThemeContext } from "../helpers/AppProvider";
 
-const Article = (props) => {
+const Exercise = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
-  //Set the article data from params
-  const { _id } = props.route.params;
+  //Set the exercise data from params
+  const { _id, type } = props.route.params;
 
-  const [article, setArticle] = useState({});
+  const [exercise, setExercise] = useState({});
 
   useEffect(() => {
-    getArticle();
+    getExercises();
   }, []);
 
-  const getArticle = async () => {
+  const getExercises = async () => {
     try {
-      let response = await axios.post(`${API_URL}/articles/get`, { _id });
+      let response = await axios.post(`${API_URL}/exercises/get`, {
+        _id,
+        type,
+      });
       let data = await response.data;
 
       if (data.status) {
-        setArticle(data.articles[0]);
+        setExercise(data.exercises[0]);
       } else {
         alert(data.errors);
       }
     } catch (e) {
       alert(e.message);
     }
-  };
-
-  const formatTime = (time) => {
-    let days = new Date(time).getDate();
-    let month = new Date(time).getMonth() + 1;
-    let year = new Date(time).getFullYear();
-
-    return `${days}/${month}/${year}`;
   };
 
   /******************************************************/
@@ -69,13 +65,7 @@ const Article = (props) => {
     margin: 10px 0px 20px;
   `;
 
-  const MainImage = styled.Image`
-    height: 200px;
-    width: 100%;
-    resize-mode: cover;
-  `;
-
-  const MainImageContainer = styled.View`
+  const SliderContainer = styled.View`
     border-radius: 12px;
     elevation: 8;
     border: 1px ${Colors.black + "11"};
@@ -90,37 +80,27 @@ const Article = (props) => {
     font-family: ArabicUI;
     line-height: 34px;
   `;
-
-  const CreateDate = styled(Content)`
-    color: ${Colors.darkGray};
-  `;
-
   /******************************************************/
-
   return (
     <>
-      <Header {...props} title={article.title} backBtnEnabled />
+      <Header {...props} title={exercise.title} backBtnEnabled />
       <ReactBtn />
       <ScrollContainer>
         <MainContainer>
           <Container>
-            <Title>{article.title}</Title>
-            <MainImageContainer>
-              <MainImage source={{ uri: article.mainImage }} />
-            </MainImageContainer>
-            <Content
-              style={{
-                marginBottom: 20,
-                borderBottomWidth: 2,
-                borderBottomColor: Colors.darkGray,
-                borderRadius: 50,
-                textAlign: "center",
-              }}
-            >
-              تاريخ النشر :{" "}
-              <CreateDate>{formatTime(article.createDate)}</CreateDate>
-            </Content>
-            <Autolink text={article.content} component={Content} />
+            <Title>{exercise.title}</Title>
+            <SliderContainer>
+              <ImageSlider width={"100%"} height={"100%"} />
+              {/* <SliderBox
+                images={exercise.images || []}
+                disableOnPress
+                sliderBoxHeight={220}
+                dotColor={Colors.primary}
+                inactiveDotColor={Colors.black + "89"}
+                imageLoadingColor={Colors.primary}
+              /> */}
+            </SliderContainer>
+            <Autolink text={exercise.content} component={Content} />
           </Container>
         </MainContainer>
       </ScrollContainer>
@@ -128,4 +108,4 @@ const Article = (props) => {
   );
 };
 
-export default Article;
+export default Exercise;
