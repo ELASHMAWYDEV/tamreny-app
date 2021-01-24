@@ -8,15 +8,17 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        drawerContent={(props) => <CustomDrawer {...props} />}
-        initialRouteName="MainNavigation"
-        drawerPosition="right"
-      >
-        <Drawer.Screen name="MainNavigation" component={MainNavigation} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Drawer.Navigator
+          drawerContent={(props) => <CustomDrawer {...props} />}
+          initialRouteName="MainNavigation"
+          drawerPosition="right"
+        >
+          <Drawer.Screen name="MainNavigation" component={MainNavigation} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </>
   );
 };
 

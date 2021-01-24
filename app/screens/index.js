@@ -8,3 +8,5 @@ export { default as Gym } from "./Gym.Screen";
 export { default as ExercisesCats } from "./ExercisesCats.Screen";
 export { default as Exercises } from "./Exercises.Screen";
 export { default as Exercise } from "./Exercise.Screen";
+export { default as Login } from "./Login.Screen";
+export { default as Register } from "./Register.Screen";

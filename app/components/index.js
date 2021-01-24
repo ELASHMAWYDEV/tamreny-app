@@ -12,3 +12,4 @@ export { default as CommentBtn } from "./CommentBtn";
 export { default as ExerciseCard } from "./ExerciseCard";
 export { default as ImageSlider } from "./ImageSlider";
 export { default as ChangeColor } from "./ChangeColor";
+export { default as MustLogin } from "./MustLogin";

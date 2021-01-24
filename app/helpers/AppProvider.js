@@ -5,16 +5,19 @@ import ColorsObj from "../settings/Colors";
 
 const AppContext = createContext();
 const ThemeContext = createContext();
+const AuthContext = createContext();
 
 export const useAppContext = () => useContext(AppContext);
 export const useThemeContext = () => useContext(ThemeContext);
+export const useAuthContext = () => useContext(AuthContext);
 
 export const AppProvider = ({ children }) => {
   const [Colors, setColors] = useState(ColorsObj);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [forceLogin, setForceLogin] = useState(true);
 
   useEffect(() => {
     getPrimaryColor();
-
   }, []);
 
   const getPrimaryColor = async () => {
@@ -36,7 +39,9 @@ export const AppProvider = ({ children }) => {
           setPrimaryColor: (color) => setColors({ ...Colors, primary: color }),
         }}
       >
-        {children}
+        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, forceLogin, setForceLogin }}>
+          {children}
+        </AuthContext.Provider>
       </ThemeContext.Provider>
     </AppContext.Provider>
   );

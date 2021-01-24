@@ -1,10 +1,9 @@
 // @ts-nocheck
 import React from "react";
-import { TouchableNativeFeedback } from "react-native";
+import { TouchableNativeFeedback, Image } from "react-native";
 import styled from "styled-components";
 import ShareBtn from "./ShareBtn";
 import LikeBtn from "./LikeBtn";
-import { SliderBox } from "react-native-image-slider-box";
 import { useThemeContext } from "../helpers/AppProvider";
 
 const ExerciseCard = ({
@@ -31,8 +30,8 @@ const ExerciseCard = ({
     overflow: hidden;
   `;
 
-  const SliderContainer = styled.View`
-    width: 102%;
+  const ImageContainer = styled.View`
+    width: 100%;
     height: 70%;
     border-bottom-width: 1px;
     border-bottom-color: ${Colors.black + "22"};
@@ -74,17 +73,12 @@ const ExerciseCard = ({
       <Container>
         <LikeBtn style={LikeBtnStyle} />
         <ShareBtn style={ShareBtnStyle} />
-        <SliderContainer>
-          <SliderBox
-            images={images}
-            disableOnPress
-            sliderBoxHeight={170}
-            dotColor={Colors.primary}
-            inactiveDotColor={Colors.black + "89"}
-            circleLoop
-            imageLoadingColor={Colors.primary}
+        <ImageContainer>
+          <Image
+            source={{ uri: images[0] }}
+            style={{ width: "100%", height: "100%", resizeMode: "cover" }}
           />
-        </SliderContainer>
+        </ImageContainer>
         <Title numberOfLines={1}>{title}</Title>
         <Description numberOfLines={1}>{description}</Description>
       </Container>

@@ -90,15 +90,11 @@ const Exercise = (props) => {
           <Container>
             <Title>{exercise.title}</Title>
             <SliderContainer>
-              <ImageSlider width={"100%"} height={"100%"} />
-              {/* <SliderBox
-                images={exercise.images || []}
-                disableOnPress
-                sliderBoxHeight={220}
-                dotColor={Colors.primary}
-                inactiveDotColor={Colors.black + "89"}
-                imageLoadingColor={Colors.primary}
-              /> */}
+              <ImageSlider
+                width={"100%"}
+                height={"100%"}
+                images={exercise.images}
+              />
             </SliderContainer>
             <Autolink text={exercise.content} component={Content} />
           </Container>

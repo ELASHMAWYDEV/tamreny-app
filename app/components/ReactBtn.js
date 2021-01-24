@@ -22,23 +22,25 @@ const ReactBtn = () => {
 
   const toggleBtn = () => {
     setExpanded(!expanded);
-    Animated.spring(pressAnim1, {
-      toValue: expanded ? 10 : 75,
-      duration: 400,
-      useNativeDriver: false,
-    }).start();
+    Animated.parallel([
+      Animated.spring(pressAnim1, {
+        toValue: expanded ? 10 : 75,
+        duration: 400,
+        useNativeDriver: false,
+      }),
 
-    Animated.spring(pressAnim2, {
-      toValue: expanded ? 10 : 145,
-      duration: 400,
-      useNativeDriver: false,
-    }).start();
+      Animated.spring(pressAnim2, {
+        toValue: expanded ? 10 : 145,
+        duration: 400,
+        useNativeDriver: false,
+      }),
 
-    Animated.spring(pressAnim3, {
-      toValue: expanded ? 10 : 215,
-      duration: 400,
-      useNativeDriver: false,
-    }).start();
+      Animated.spring(pressAnim3, {
+        toValue: expanded ? 10 : 215,
+        duration: 400,
+        useNativeDriver: false,
+      }),
+    ]).start();
   };
   /******************************************************/
   const BtnContainerStyle = styled.View`

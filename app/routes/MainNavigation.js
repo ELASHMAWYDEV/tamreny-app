@@ -11,6 +11,8 @@ import {
   ExercisesCats,
   Exercises,
   Exercise,
+  Login,
+  Register,
 } from "../screens/index";
 
 const Stack = createStackNavigator();
@@ -34,6 +36,8 @@ const MainNavigation = () => {
       <Stack.Screen name="ExercisesCats" component={ExercisesCats} />
       <Stack.Screen name="Exercises" component={Exercises} />
       <Stack.Screen name="Exercise" component={Exercise} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
   );
 };

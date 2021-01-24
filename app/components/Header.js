@@ -5,7 +5,7 @@ import styled from "styled-components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-ionicons";
 import { StatusBar } from "react-native";
-import { ChangeColor } from "../components/index";
+import ChangeColor from "./ChangeColor";
 import { useThemeContext } from "../helpers/AppProvider";
 import PowerFace from "../assets/img/power-face.png";
 
@@ -49,18 +49,18 @@ const Header = ({ title = "Header", navigation, backBtnEnabled = false }) => {
   const FaceContainer = styled.View`
     width: 45px;
     height: 45px;
-    border-radius: 15px;
+    border-radius: ${100 / 2}px;
     align-self: center;
     align-items: center;
     justify-content: center;
     margin-left: 15px;
     overflow: hidden;
-    elevation: 7;
+    elevation: 2;
   `;
 
   const FaceImage = styled.Image`
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     resize-mode: contain;
   `;
 

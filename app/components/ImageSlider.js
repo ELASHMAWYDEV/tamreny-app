@@ -1,61 +1,59 @@
 // @ts-nocheck
-import React, { useRef, useEffect } from "react";
-import { Image } from "react-native";
+import React, { useRef, useEffect, useState, useCallback } from "react";
+import { Image, FlatList, TouchableWithoutFeedback } from "react-native";
+import { SwiperFlatList } from "react-native-swiper-flatlist";
 import styled from "styled-components";
 import { useThemeContext } from "../helpers/AppProvider";
 
-const ImageSlider = ({ width, height }) => {
+const ImageSlider = ({ width, height, images = [] }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
-  const sliderRef = useRef();
+  const [containerLayout, setContainerLayout] = useState({});
+
+  const containerRef = useRef();
 
   useEffect(() => {
-    console.log(sliderRef.current.parentElement);
-  });
-
-  let images = [
-    "http://localhost:5000/images/image-exercises/e793fb55-9f13-4e47-8c61-578c3e16ec42.jpg",
-    "http://localhost:5000/images/image-exercises/7878baf4-5a9f-4d6d-8e26-9a64e8cf252b.jpg",
-    require("../assets/img/article-image.png"),
-    "http://localhost:5000/images/image-exercises/acd78ab6-cbd8-4ff9-92a8-6b258df1de81.png",
-  ];
+    containerRef.current.measureInWindow((x, y, width, height) => {
+      setContainerLayout({ width, height });
+    });
+  }, []);
 
   /******************************************************/
   const Container = styled.View`
-    width: ${(props) => props.width || "300px"};
-    height: ${(props) => props.height || "200px"};
+    width: ${width || "300px"};
+    height: ${height || "200px"};
+    background-color: ${Colors.primary};
   `;
 
-  const Slider = styled.ScrollView`
-    background-color: ${Colors.lightGray};
-  `;
-
-  const ImageComponent = styled.Image`
+  const ImageComponent = styled(Image)`
     resize-mode: cover;
-    width: 100%;
-    height: 100%;
+    align-self: center;
+    height: ${containerLayout.height || 200}px;
+    width: ${containerLayout.width || 300}px;
   `;
+
   /******************************************************/
   return (
-    <Container height={height} width={width}>
-      <Slider
-        ref={sliderRef}
-        pagingEnabled
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      >
-        {/* {images.map((image, i) => (
+    <Container ref={containerRef} onPress={() => null}>
+      <SwiperFlatList
+        index={0}
+        showPagination
+        data={images}
+        paginationStyleItem={{
+          width: 8,
+          height: 8,
+          marginLeft: 0,
+          elevation: 5,
+        }}
+        paginationStyleItemActive={{ backgroundColor: Colors.primary }}
+        paginationStyleItemInactive={{ backgroundColor: Colors.gray }}
+        renderItem={({ item }) => (
           <ImageComponent
-            key={i}
-            source={typeof image === "string" ? { uri: image } : image}
+            source={typeof item === "string" ? { uri: item } : item}
           />
-        ))} */}
-        <Image
-          source={require("../assets/img/article-image.png")}
-          style={{ width: "100%", height: 100 }}
-        />
-      </Slider>
+        )}
+      />
     </Container>
   );
 };

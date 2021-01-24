@@ -5,10 +5,12 @@ import styled from "styled-components";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import Icon from "react-native-ionicons";
 import pkg from "../../app.json";
-import { useThemeContext } from "../helpers/AppProvider";
+import { useThemeContext, useAuthContext } from "../helpers/AppProvider";
+import { MustLogin } from "./";
 
 const CustomDrawer = (props = { navigation }) => {
   const Theme = useThemeContext();
+  const { isLoggedIn, forceLogin } = useAuthContext();
   let Colors = Theme.Colors;
 
   const screens = [
@@ -17,42 +19,63 @@ const CustomDrawer = (props = { navigation }) => {
       title: "الرئيسية",
       icon: "ios-home",
       active: true,
+      isLoggedIn: false,
+    },
+    {
+      name: "Login",
+      title: "تسجيل الدخول",
+      icon: "person",
+      active: false,
+      isLoggedIn: false,
+    },
+    {
+      name: "Home",
+      title: "طلباتي",
+      icon: "cart",
+      active: false,
+      isLoggedIn: true,
     },
     {
       name: "Home",
       title: "محادثاتي",
       icon: "ios-chatbubbles",
       active: false,
+      isLoggedIn: true,
     },
     {
       name: "Home",
       title: "الاعدادات",
       icon: "settings",
       active: false,
+      isLoggedIn: false,
     },
     {
       name: "Home",
       title: "عن التطبيق",
       icon: "ios-help-circle",
       active: false,
+      isLoggedIn: false,
     },
     {
       name: "Home",
       title: "تواصل معنا",
       icon: "ios-mail",
       active: false,
+      isLoggedIn: false,
     },
     {
       name: "Home",
       title: "تقييم التطبيق",
       icon: "ios-star",
       active: false,
+      isLoggedIn: false,
     },
     {
       name: "Home",
       title: "تسجيل الخروج",
       icon: "ios-log-out",
       active: false,
+      isLoggedIn: true,
     },
   ];
   /******************************************************/
@@ -85,7 +108,7 @@ const CustomDrawer = (props = { navigation }) => {
     border-radius: 12px;
     margin-bottom: 5px;
     background-color: ${(props) =>
-      props.active ? Colors.black : Colors.white};
+      props.active ? Colors.primary : Colors.white};
   `;
 
   const BtnTitle = styled.Text`
@@ -114,22 +137,27 @@ const CustomDrawer = (props = { navigation }) => {
   /******************************************************/
   return (
     <DrawerContentScrollView {...props}>
+      {forceLogin && <MustLogin {...props} />}
+
       <LogoContainer>
         <LogoImage source={require("../assets/img/logo.png")} />
       </LogoContainer>
       <BtnsContainer>
-        {screens.map((screen, i) => (
-          <TouchableNativeFeedback
-            key={i}
-            onPress={() => props.navigation.navigate(screen.name)}
-            useForeground
-          >
-            <DrawerBtn active={screen.active}>
-              <BtnIcon name={screen.icon} active={screen.active} />
-              <BtnTitle active={screen.active}>{screen.title}</BtnTitle>
-            </DrawerBtn>
-          </TouchableNativeFeedback>
-        ))}
+        {screens.map(
+          (screen, i) =>
+            screen.isLoggedIn === isLoggedIn && (
+              <TouchableNativeFeedback
+                key={i}
+                onPress={() => props.navigation.navigate(screen.name)}
+                useForeground
+              >
+                <DrawerBtn active={screen.active}>
+                  <BtnIcon name={screen.icon} active={screen.active} />
+                  <BtnTitle active={screen.active}>{screen.title}</BtnTitle>
+                </DrawerBtn>
+              </TouchableNativeFeedback>
+            )
+        )}
       </BtnsContainer>
       <FooterContainer>
         <FooterText>Version {pkg.expo.version}</FooterText>

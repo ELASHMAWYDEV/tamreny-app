@@ -5,7 +5,6 @@ import styled from "styled-components";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
 import { Header } from "../components/index";
-import Colors from "../settings/Colors";
 import { useThemeContext } from "../helpers/AppProvider";
 
 const ExercisesCats = (props) => {
