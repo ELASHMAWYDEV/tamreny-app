@@ -1,7 +1,13 @@
 // @ts-nocheck
 import React, { useContext, createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Image } from "react-native";
+
+//Colors
 import ColorsObj from "../settings/Colors";
+
+//Assets
+import PowerFace from "../assets/img/power-face.png";
 
 const AppContext = createContext();
 const ThemeContext = createContext();
@@ -14,9 +20,14 @@ export const useAuthContext = () => useContext(AuthContext);
 export const AppProvider = ({ children }) => {
   const [Colors, setColors] = useState(ColorsObj);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [forceLogin, setForceLogin] = useState(true);
+  const [forceLogin, setForceLogin] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [primaryFace, setPrimaryFace] = useState(
+    Image.resolveAssetSource(PowerFace).uri
+  );
 
   useEffect(() => {
+    getFaceImage();
     getPrimaryColor();
   }, []);
 
@@ -31,15 +42,30 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const getFaceImage = async () => {
+    try {
+      let imageUri = await AsyncStorage.getItem("@primary_face");
+      if (imageUri) {
+        setPrimaryFace(JSON.parse(imageUri));
+      }
+    } catch (e) {
+      alert(e.message);
+    }
+  };
+
   return (
-    <AppContext.Provider value={{}}>
+    <AppContext.Provider
+      value={{ isLoading, setIsLoading, primaryFace, setPrimaryFace }}
+    >
       <ThemeContext.Provider
         value={{
           Colors,
           setPrimaryColor: (color) => setColors({ ...Colors, primary: color }),
         }}
       >
-        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, forceLogin, setForceLogin }}>
+        <AuthContext.Provider
+          value={{ isLoggedIn, setIsLoggedIn, forceLogin, setForceLogin }}
+        >
           {children}
         </AuthContext.Provider>
       </ThemeContext.Provider>

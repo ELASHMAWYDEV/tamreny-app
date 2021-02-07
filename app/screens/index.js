@@ -10,3 +10,7 @@ export { default as Exercises } from "./Exercises.Screen";
 export { default as Exercise } from "./Exercise.Screen";
 export { default as Login } from "./Login.Screen";
 export { default as Register } from "./Register.Screen";
+export { default as Supplements } from "./Supplements.Screen";
+export { default as Supplement } from "./Supplement.Screen";
+export { default as Products } from "./Products.Screen";
+export { default as Product } from "./Product.Screen";

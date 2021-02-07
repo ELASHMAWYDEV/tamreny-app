@@ -1,13 +1,15 @@
 // @ts-nocheck
 import React from "react";
-import { TouchableNativeFeedback } from "react-native";
+import { TouchableNativeFeedback, Image } from "react-native";
 import styled from "styled-components";
 import ShareBtn from "./ShareBtn";
 import LikeBtn from "./LikeBtn";
-import { SliderBox } from "react-native-image-slider-box";
 import { useThemeContext } from "../helpers/AppProvider";
 
-const GymCard = ({ navigation }) => {
+const GymCard = ({
+  navigation,
+  images = ["http://i3.ytimg.com/vi/erLk59H86ww/maxresdefault.jpg"],
+}) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
@@ -73,25 +75,17 @@ const GymCard = ({ navigation }) => {
   return (
     <TouchableNativeFeedback
       useForeground
-      onPress={() => navigation.navigate("Gym")}
+      onPress={() => navigation.navigate("Gym", { _id: 1 })}
     >
       <Container>
         <LikeBtn style={LikeBtnStyle} />
         <ShareBtn style={ShareBtnStyle} />
         <SliderContainer>
-          <SliderBox
-            images={[
-              require("../assets/img/article-image.png"),
-              require("../assets/img/article-image.png"),
-              require("../assets/img/article-image.png"),
-              require("../assets/img/article-image.png"),
-            ]}
-            disableOnPress
-            sliderBoxHeight={150}
-            dotColor={Colors.primary}
-            inactiveDotColor={Colors.white}
-            circleLoop
-            imageLoadingColor={Colors.primary}
+          <Image
+            source={{
+              uri: images[0],
+            }}
+            style={{ width: "100%", height: "100%", resizeMode: "cover" }}
           />
         </SliderContainer>
         <RowContainer style={{ marginTop: 10, marginLeft: 15 }}>
@@ -116,7 +110,7 @@ const GymCard = ({ navigation }) => {
               source={require("../assets/img/distance.png")}
               style={{ height: 25, width: 25 }}
             />
-            <NormalText numberOfLines={1}>1.2 كم</NormalText>
+            <NormalText numberOfLines={1}>غير معروف</NormalText>
           </RowContainer>
         </RowContainer>
       </Container>

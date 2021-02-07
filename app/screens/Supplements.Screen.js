@@ -3,37 +3,31 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
-import { Header } from "../components/index";
-import { ArticleCard, SearchBtn } from "../components/index";
-import { useThemeContext, useAppContext } from "../helpers/AppProvider";
+import { SupplementCard, SearchBtn, Header } from "../components";
+import { useThemeContext } from "../helpers/AppProvider";
 
-const Articles = (props) => {
+const Supplements = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
-  const { setIsLoading } = useAppContext();
-
-  const [articles, setArticles] = useState([]);
+  const [supplements, setSupplements] = useState([]);
 
   useEffect(() => {
-    getArticles();
+    getsupplements();
   }, []);
 
-  const getArticles = async () => {
+  const getsupplements = async () => {
     try {
-      setIsLoading(true);
       let response = await axios.post(`${API_URL}/articles/get`);
       let data = await response.data;
 
       if (data.status) {
-        setArticles(data.articles);
+        setSupplements(data.articles);
       } else {
         alert(data.errors);
       }
-      setIsLoading(false);
     } catch (e) {
       console.log(e);
-      setIsLoading(false);
     }
   };
 
@@ -65,14 +59,21 @@ const Articles = (props) => {
 
   return (
     <>
-      <Header {...props} title="المقالات" backBtnEnabled />
+      <Header {...props} title="المكملات الغذائية" backBtnEnabled />
       <MainContainer>
-        <SearchBtn style={SearchBtnStyle}/>
+        <SearchBtn style={SearchBtnStyle} />
         <ScrollContainer>
           <Container>
-            {articles.length != 0 &&
-              articles.map((article, i) => (
-                <ArticleCard key={i} {...props} article={article} />
+            {supplements.length != 0 &&
+              supplements.map(({ title, content, mainImage, _id }) => (
+                <SupplementCard
+                  key={_id}
+                  {...props}
+                  _id={_id}
+                  title={title}
+                  content={content}
+                  mainImage={mainImage}
+                />
               ))}
           </Container>
         </ScrollContainer>
@@ -81,4 +82,4 @@ const Articles = (props) => {
   );
 };
 
-export default Articles;
+export default Supplements;

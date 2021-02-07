@@ -5,8 +5,9 @@ import Autolink from "react-native-autolink";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
 import { Header, ReactBtn, ImageSlider } from "../components/index";
-import { SliderBox } from "react-native-image-slider-box";
+import WebView from "react-native-webview";
 import { useThemeContext } from "../helpers/AppProvider";
+import { YOUTUBE_PLAYER } from "../settings/Config";
 
 const Exercise = (props) => {
   const Theme = useThemeContext();
@@ -73,6 +74,7 @@ const Exercise = (props) => {
     width: 100%;
     height: 200px;
     margin: 0 0 25px;
+    background-color: ${Colors.white};
   `;
 
   const Content = styled.Text`
@@ -90,13 +92,30 @@ const Exercise = (props) => {
           <Container>
             <Title>{exercise.title}</Title>
             <SliderContainer>
-              <ImageSlider
-                width={"100%"}
-                height={"100%"}
-                images={exercise.images}
-              />
+              {type == 1 ? (
+                <ImageSlider
+                  width={"100%"}
+                  height={"100%"}
+                  images={exercise.images}
+                />
+              ) : (
+                <WebView
+                  allowsFullscreenVideo
+                  useWebKit
+                  allowsInlineMediaPlayback
+                  mediaPlaybackRequiresUserAction
+                  javaScriptEnabled
+                  scrollEnabled={false}
+                  source={{
+                    uri: YOUTUBE_PLAYER + exercise.videoId,
+                  }}
+                />
+              )}
             </SliderContainer>
-            <Autolink text={exercise.content} component={Content} />
+            <Autolink
+              text={exercise.content || exercise.description}
+              component={Content}
+            />
           </Container>
         </MainContainer>
       </ScrollContainer>

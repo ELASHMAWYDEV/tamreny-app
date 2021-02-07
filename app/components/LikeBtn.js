@@ -3,16 +3,23 @@ import React, { useState } from "react";
 import { TouchableWithoutFeedback, Animated } from "react-native";
 import styled from "styled-components";
 import Icon from "react-native-ionicons";
-import { useThemeContext } from "../helpers/AppProvider";
+import { useThemeContext, useAuthContext } from "../helpers/AppProvider";
 
 const LikeBtn = ({ liked = false, style = styled.View``, size }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
+  const { isLoggedIn, setForceLogin } = useAuthContext();
+
   const [isLiked, setIsLiked] = useState(liked);
   const [pressAnim] = useState(new Animated.Value(0.9));
 
   const pressLike = () => {
+    if (!isLoggedIn) {
+      setForceLogin(true);
+      return;
+    }
+
     setIsLiked(!isLiked);
     Animated.sequence([
       Animated.timing(pressAnim, {

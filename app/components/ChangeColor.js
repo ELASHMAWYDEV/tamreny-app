@@ -3,15 +3,15 @@ import React, { useState, useEffect } from "react";
 import { Modal, TouchableNativeFeedback, Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled from "styled-components";
-import { useThemeContext } from "../helpers/AppProvider";
+import { useThemeContext, useAppContext } from "../helpers/AppProvider";
 
 const ChangeColor = ({ visible, onClose = () => null }) => {
   const [isVisible, setIsVisible] = useState(visible);
   const [faceImages, setFaceImages] = useState([]);
-
-  const Theme = useThemeContext();
-  let Colors = Theme.Colors;
-
+  
+  const { Colors, setPrimaryColor } = useThemeContext();
+  const { setPrimaryFace } = useAppContext();
+  
   useEffect(() => {
     setIsVisible(visible);
     getImagesUri();
@@ -19,11 +19,10 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
 
   const selectFace = async ({ color, image }) => {
     try {
-
       await AsyncStorage.setItem("@primary_color", color);
       await AsyncStorage.setItem("@primary_face", JSON.stringify(image));
-      Theme.setPrimaryColor(color);
-
+      setPrimaryColor(color);
+      setPrimaryFace(image);
       onClose();
     } catch (e) {
       alert(e.message);

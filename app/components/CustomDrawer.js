@@ -42,13 +42,13 @@ const CustomDrawer = (props = { navigation }) => {
       active: false,
       isLoggedIn: true,
     },
-    {
-      name: "Home",
-      title: "الاعدادات",
-      icon: "settings",
-      active: false,
-      isLoggedIn: false,
-    },
+    // {
+    //   name: "Home",
+    //   title: "الاعدادات",
+    //   icon: "settings",
+    //   active: false,
+    //   isLoggedIn: false,
+    // },
     {
       name: "Home",
       title: "عن التطبيق",
@@ -95,6 +95,7 @@ const CustomDrawer = (props = { navigation }) => {
 
   const BtnsContainer = styled.View`
     margin-top: 50px;
+    margin-bottom: 20px;
   `;
 
   const DrawerBtn = styled.View`
@@ -124,7 +125,8 @@ const CustomDrawer = (props = { navigation }) => {
   `;
 
   const FooterContainer = styled.View`
-    margin-top: 40px;
+    margin-top: auto;
+    margin-bottom: 10px;
   `;
 
   const FooterText = styled.Text`
@@ -136,7 +138,7 @@ const CustomDrawer = (props = { navigation }) => {
 
   /******************************************************/
   return (
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView {...props} contentContainerStyle={{minHeight: "100%"}}>
       {forceLogin && <MustLogin {...props} />}
 
       <LogoContainer>

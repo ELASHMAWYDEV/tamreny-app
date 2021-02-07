@@ -135,7 +135,7 @@ const Home = (props) => {
             <BigImage source={require("../assets/img/shops.png")} />
             <BigCardLeft>
               <CardTitle>متجر المنتجات</CardTitle>
-              <TouchableNativeFeedback useForeground>
+              <TouchableNativeFeedback useForeground onPress={() => props.navigation.navigate("Products")}>
                 <CardBtn>
                   <CardBtnText>اشتري الأن</CardBtnText>
                 </CardBtn>
@@ -158,7 +158,7 @@ const Home = (props) => {
                 <CardText>تمارين{"\n"}جاهزة</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
-            <TouchableNativeFeedback useForeground>
+            <TouchableNativeFeedback useForeground onPress={() => props.navigation.navigate("Supplements")}>
               <SmallCard>
                 <SmallImage source={require("../assets/img/flat.png")} />
                 <CardText>المكملات{"\n"}الغذائية</CardText>

@@ -13,6 +13,10 @@ import {
   Exercise,
   Login,
   Register,
+  Supplements,
+  Supplement,
+  Products,
+  Product,
 } from "../screens/index";
 
 const Stack = createStackNavigator();
@@ -38,6 +42,10 @@ const MainNavigation = () => {
       <Stack.Screen name="Exercise" component={Exercise} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="Supplements" component={Supplements} />
+      <Stack.Screen name="Supplement" component={Supplement} />
+      <Stack.Screen name="Products" component={Products} />
+      <Stack.Screen name="Product" component={Product} />
     </Stack.Navigator>
   );
 };

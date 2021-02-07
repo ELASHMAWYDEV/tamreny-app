@@ -110,12 +110,14 @@ const SearchBtn = ({ style = styled.View`` }) => {
           )}
         </SearchButton>
       </TouchableNativeFeedback>
-      <SearchBoxContainer style={{ left: pressAnim }}>
+      <SearchBoxContainer style={{ left: 0 }}>
         <TextInput
           style={styles.TextInputStyle}
           placeholder="بحث..."
           value={searchQuery}
-          onChangeText={setSearchQuery}
+          onChangeText={(value) => {
+            setSearchQuery(value);
+          }}
         />
       </SearchBoxContainer>
     </Container>

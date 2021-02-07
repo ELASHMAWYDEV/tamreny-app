@@ -4,29 +4,29 @@ import styled from "styled-components";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
 import { Header } from "../components/index";
-import { ArticleCard, SearchBtn } from "../components/index";
+import { ProductCard, SearchBtn } from "../components/index";
 import { useThemeContext, useAppContext } from "../helpers/AppProvider";
 
-const Articles = (props) => {
+const Products = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
   const { setIsLoading } = useAppContext();
 
-  const [articles, setArticles] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    getArticles();
+    getProducts();
   }, []);
 
-  const getArticles = async () => {
+  const getProducts = async () => {
     try {
       setIsLoading(true);
       let response = await axios.post(`${API_URL}/articles/get`);
       let data = await response.data;
 
       if (data.status) {
-        setArticles(data.articles);
+        setProducts(data.articles);
       } else {
         alert(data.errors);
       }
@@ -61,18 +61,20 @@ const Articles = (props) => {
     z-index: 6;
   `;
 
+  
+
   /******************************************************/
 
   return (
     <>
-      <Header {...props} title="المقالات" backBtnEnabled />
+      <Header {...props} title="متجر المنتجات" backBtnEnabled />
       <MainContainer>
-        <SearchBtn style={SearchBtnStyle}/>
+        <SearchBtn style={SearchBtnStyle} />
         <ScrollContainer>
           <Container>
-            {articles.length != 0 &&
-              articles.map((article, i) => (
-                <ArticleCard key={i} {...props} article={article} />
+            {products.length != 0 &&
+              products.map((product, i) => (
+                <ProductCard key={i} {...props} product={product} />
               ))}
           </Container>
         </ScrollContainer>
@@ -81,4 +83,4 @@ const Articles = (props) => {
   );
 };
 
-export default Articles;
+export default Products;

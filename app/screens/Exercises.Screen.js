@@ -68,7 +68,7 @@ const ImageExercises = (props) => {
         <SearchBtn style={SearchBtnStyle} />
         <ScrollContainer>
           <Container>
-            {exercises.map(({ _id, images, title, description }, i) => (
+            {exercises.map(({ _id, images, title, description, videoId }, i) => (
               <ExerciseCard
                 key={i}
                 {...props}
@@ -78,6 +78,7 @@ const ImageExercises = (props) => {
                 title={title}
                 description={description}
                 type={type}
+                videoId={videoId}
               />
             ))}
           </Container>

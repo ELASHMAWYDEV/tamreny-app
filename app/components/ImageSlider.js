@@ -1,9 +1,11 @@
 // @ts-nocheck
-import React, { useRef, useEffect, useState, useCallback } from "react";
-import { Image, FlatList, TouchableWithoutFeedback } from "react-native";
+import React, { useRef, useEffect, useState } from "react";
+import { Image, FlatList, TouchableWithoutFeedback, View } from "react-native";
+import WebView from "react-native-webview";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 import styled from "styled-components";
 import { useThemeContext } from "../helpers/AppProvider";
+import { YOUTUBE_PLAYER } from "../settings/Config";
 
 const ImageSlider = ({ width, height, images = [] }) => {
   const Theme = useThemeContext();
@@ -30,7 +32,7 @@ const ImageSlider = ({ width, height, images = [] }) => {
     resize-mode: cover;
     align-self: center;
     height: ${containerLayout.height || 200}px;
-    width: ${containerLayout.width || 300}px;
+    width: ${containerLayout.width || 320}px;
   `;
 
   /******************************************************/

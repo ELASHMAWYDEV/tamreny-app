@@ -1,37 +1,19 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
-import { TouchableNativeFeedback, Image } from "react-native";
+import { TouchableNativeFeedback } from "react-native";
 import styled from "styled-components";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-ionicons";
 import { StatusBar } from "react-native";
 import ChangeColor from "./ChangeColor";
-import { useThemeContext } from "../helpers/AppProvider";
-import PowerFace from "../assets/img/power-face.png";
+import { useThemeContext, useAppContext } from "../helpers/AppProvider";
 
 const Header = ({ title = "Header", navigation, backBtnEnabled = false }) => {
   const [changeColorVisible, setChangeColorVisible] = useState(false);
-  const [primaryFace, setPrimaryFace] = useState(
-    Image.resolveAssetSource(PowerFace).uri
-  );
 
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
-  useEffect(() => {
-    getFaceImage();
-  }, []);
-
-  const getFaceImage = async () => {
-    try {
-      let imageUri = await AsyncStorage.getItem("@primary_face");
-      if (imageUri) {
-        setPrimaryFace(JSON.parse(imageUri));
-      }
-    } catch (e) {
-      alert(e.message);
-    }
-  };
+  const { primaryFace } = useAppContext();
 
   /******************************************************/
 
@@ -128,7 +110,6 @@ const Header = ({ title = "Header", navigation, backBtnEnabled = false }) => {
         visible={changeColorVisible}
         onClose={() => {
           setChangeColorVisible(false);
-          getFaceImage();
         }}
       />
       <Container>

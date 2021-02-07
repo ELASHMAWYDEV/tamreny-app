@@ -1,29 +1,20 @@
-import React, { useState } from "react";
-import { TouchableNativeFeedback, Image } from "react-native";
+// @ts-nocheck
+import React from "react";
+import { TouchableNativeFeedback } from "react-native";
 import styled from "styled-components";
-import WebView from "react-native-webview";
 import ShareBtn from "./ShareBtn";
 import LikeBtn from "./LikeBtn";
 import { useThemeContext } from "../helpers/AppProvider";
-import { YOUTUBE_PLAYER } from "../settings/Config";
 
-const ExerciseCard = ({
-  navigation,
-  _id,
-  images = [],
-  title,
-  description,
-  categoryId,
-  type,
-  videoId,
-}) => {
+const SupplementCard = ({ navigation, title, content, mainImage, _id }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
   /******************************************************/
+
   const Container = styled.View`
     width: 100%;
-    height: 230px;
+    height: 250px;
     border-radius: 10px;
     background-color: ${Colors.white};
     elevation: 10;
@@ -32,29 +23,26 @@ const ExerciseCard = ({
     overflow: hidden;
   `;
 
-  const ImageContainer = styled.View`
-    width: 100%;
-    height: 70%;
-    border-bottom-width: 1px;
-    border-bottom-color: ${Colors.black + "22"};
+  const ArticleImage = styled.Image`
+    width: 102%;
+    height: 60%;
   `;
 
   const Title = styled.Text`
     font-size: 18px;
-    font-family: Cairo-Bold;
-    line-height: 30px;
-    margin-top: 5px;
-    text-align: center;
+    font-family: Cairo-SemiBold;
+    line-height: 24px;
+    margin: 14px 12px 5px 30px;
   `;
 
   const Description = styled.Text`
     font-size: 14px;
+    line-height: 22px;
     font-family: ArabicUI;
-    margin: 0 10px;
-    line-height: 26px;
+    margin: 0px 12px 5px 30px;
     color: ${Colors.darkGray};
-    text-align: center;
   `;
+
   const LikeBtnStyle = styled.View`
     position: absolute;
     z-index: 5;
@@ -65,31 +53,27 @@ const ExerciseCard = ({
   const ShareBtnStyle = styled(LikeBtnStyle)`
     left: 10px;
   `;
+
   /******************************************************/
 
   return (
     <TouchableNativeFeedback
       useForeground
-      onPress={() => navigation.navigate("Exercise", { _id, type })}
+      onPress={() =>
+        navigation.navigate("Supplement", {
+          _id,
+        })
+      }
     >
       <Container>
         <LikeBtn style={LikeBtnStyle} />
         <ShareBtn style={ShareBtnStyle} />
-        <ImageContainer>
-          <Image
-            source={{
-              uri:
-                images[0] ||
-                `http://i3.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
-            }}
-            style={{ width: "100%", height: "100%", resizeMode: "cover" }}
-          />
-        </ImageContainer>
+        <ArticleImage source={{ uri: mainImage }} />
         <Title numberOfLines={1}>{title}</Title>
-        <Description numberOfLines={1}>{description}</Description>
+        <Description numberOfLines={2}>{content}</Description>
       </Container>
     </TouchableNativeFeedback>
   );
 };
 
-export default ExerciseCard;
+export default SupplementCard;

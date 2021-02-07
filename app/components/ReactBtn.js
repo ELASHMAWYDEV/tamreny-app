@@ -11,7 +11,7 @@ import ShareBtn from "./ShareBtn";
 import CommentBtn from "./CommentBtn";
 import { useThemeContext } from "../helpers/AppProvider";
 
-const ReactBtn = () => {
+const ReactBtn = ({ customStyle = {} }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
@@ -88,7 +88,7 @@ const ReactBtn = () => {
 
   return (
     <TouchableWithoutFeedback>
-      <Container style={{ height: expanded ? 280 : 70 }}>
+      <Container style={{ height: expanded ? 280 : 70, ...customStyle }}>
         <TouchableNativeFeedback onPress={toggleBtn} useForeground>
           <Circle shadow style={{ zIndex: 3, bottom: 8 }}>
             <SmallCircle>

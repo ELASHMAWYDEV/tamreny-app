@@ -6,6 +6,7 @@ let Colors = {
   black: "#2f3640",
   white: "#ffffff",
   primary: "#00a9fd",
+  green: "#55BE6C",
 };
 
 

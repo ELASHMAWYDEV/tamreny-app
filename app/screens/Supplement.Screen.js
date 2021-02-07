@@ -5,30 +5,24 @@ import Autolink from "react-native-autolink";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
 import { Header, ReactBtn } from "../components/index";
-import { useThemeContext, useAppContext } from "../helpers/AppProvider";
+import { useThemeContext } from "../helpers/AppProvider";
 
-const Article = (props) => {
+const Supplement = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
-  const { setIsLoading } = useAppContext();
-
   //Set the article data from params
-  const { articleObj } = props.route.params;
+  const { _id } = props.route.params;
 
   const [article, setArticle] = useState({});
 
   useEffect(() => {
-    setArticle(articleObj);
     getArticle();
   }, []);
 
   const getArticle = async () => {
     try {
-      // setIsLoading(true);
-      let response = await axios.post(`${API_URL}/articles/get`, {
-        _id: articleObj._id,
-      });
+      let response = await axios.post(`${API_URL}/articles/get`, { _id });
       let data = await response.data;
 
       if (data.status) {
@@ -36,10 +30,8 @@ const Article = (props) => {
       } else {
         alert(data.errors);
       }
-      // setIsLoading(false);
     } catch (e) {
       alert(e.message);
-      // setIsLoading(false);
     }
   };
 
@@ -91,7 +83,6 @@ const Article = (props) => {
     width: 100%;
     height: 200px;
     margin: 0 0 25px;
-    background-color: ${Colors.primary};
   `;
 
   const Content = styled.Text`
@@ -117,18 +108,6 @@ const Article = (props) => {
             <MainImageContainer>
               <MainImage source={{ uri: article.mainImage }} />
             </MainImageContainer>
-            <Content
-              style={{
-                marginBottom: 20,
-                borderBottomWidth: 2,
-                borderBottomColor: Colors.darkGray,
-                borderRadius: 50,
-                textAlign: "center",
-              }}
-            >
-              تاريخ النشر :{" "}
-              <CreateDate>{formatTime(article.createDate)}</CreateDate>
-            </Content>
             <Autolink text={article.content} component={Content} />
           </Container>
         </MainContainer>
@@ -137,4 +116,4 @@ const Article = (props) => {
   );
 };
 
-export default Article;
+export default Supplement;

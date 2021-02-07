@@ -1,9 +1,10 @@
 // @ts-nocheck
 import React from "react";
 import styled from "styled-components";
-import { SliderBox } from "react-native-image-slider-box";
-import { Header, ReactBtn } from "../components/index";
+import WebView from "react-native-webview";
+import { Header, ReactBtn, ImageSlider } from "../components";
 import { useThemeContext } from "../helpers/AppProvider";
+import { YOUTUBE_PLAYER } from "../settings/Config";
 
 const Gym = (props) => {
   const Theme = useThemeContext();
@@ -41,6 +42,7 @@ const Gym = (props) => {
     overflow: hidden;
     width: 100%;
     height: 200px;
+    background-color: ${Colors.white};
   `;
 
   const Content = styled.Text`
@@ -89,18 +91,15 @@ const Gym = (props) => {
           <Container>
             <Title>قاعة بغداد</Title>
             <SliderContainer>
-              <SliderBox
+              <ImageSlider
+                width={"100%"}
+                height={"100%"}
                 images={[
-                  require("../assets/img/article-image.png"),
-                  require("../assets/img/article-image.png"),
-                  require("../assets/img/article-image.png"),
-                  require("../assets/img/article-image.png"),
+                  "http://i3.ytimg.com/vi/quoINM6twdg/maxresdefault.jpg",
+                  "http://i3.ytimg.com/vi/erLk59H86ww/maxresdefault.jpg",
+                  "http://i3.ytimg.com/vi/c7I17N-Tfz0/maxresdefault.jpg",
                 ]}
-                disableOnPress
-                dotColor={Colors.primary}
-                inactiveDotColor={Colors.white}
-                circleLoop
-                imageLoadingColor={Colors.primary}
+                videos={["quoINM6twdg", "erLk59H86ww"]}
               />
             </SliderContainer>
             <RowContainer

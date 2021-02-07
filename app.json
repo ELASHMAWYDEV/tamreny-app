@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/main-img/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.tamreny.app"
     },
     "web": {
       "favicon": "./app/assets/main-img/favicon.png"
