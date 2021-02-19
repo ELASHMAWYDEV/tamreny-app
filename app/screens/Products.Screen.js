@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
@@ -14,6 +13,7 @@ const Products = (props) => {
   const { setIsLoading } = useAppContext();
 
   const [products, setProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     getProducts();
@@ -38,37 +38,34 @@ const Products = (props) => {
   };
 
   /******************************************************/
-  const ScrollContainer = styled.ScrollView`
-    background-color: ${Colors.white};
-    min-height: 100%;
-  `;
-
-  const MainContainer = styled.View`
-    flex: 1;
-    background-color: ${Colors.white};
-  `;
-
-  const Container = styled.View`
-    flex: 1;
-    background-color: ${Colors.white};
-    padding: 20px 15px;
-  `;
-
-  /******************************************************/
 
   return (
     <>
       <Header {...props} title="متجر المنتجات" backBtnEnabled />
-      <MainContainer>
+      <MainContainer bgColor={Colors.white}>
         <SearchBtn
           style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+          onSearch={setSearchQuery}
         />
-        <ScrollContainer>
-          <Container>
-            {products.length != 0 &&
-              products.map((product, i) => (
-                <ProductCard key={i} {...props} product={product} />
-              ))}
+        <ScrollContainer bgColor={Colors.white}>
+          <Container bgColor={Colors.white}>
+            {products.filter(
+              (product) =>
+                product.title.includes(searchQuery) ||
+                product.content.includes(searchQuery)
+            ).length != 0 ? (
+              products
+                .filter(
+                  (product) =>
+                    product.title.includes(searchQuery) ||
+                    product.content.includes(searchQuery)
+                )
+                .map((product, i) => (
+                  <ProductCard key={i} {...props} product={product} />
+                ))
+            ) : (
+              <NormalText color={Colors.darkGray}>لا يوجد منتجات</NormalText>
+            )}
           </Container>
         </ScrollContainer>
       </MainContainer>
@@ -76,4 +73,27 @@ const Products = (props) => {
   );
 };
 
+const ScrollContainer = styled.ScrollView`
+  background-color: ${(props) => props.bgColor};
+  min-height: 100%;
+`;
+
+const MainContainer = styled.View`
+  flex: 1;
+  background-color: ${(props) => props.bgColor};
+`;
+
+const Container = styled.View`
+  flex: 1;
+  background-color: ${(props) => props.bgColor};
+  padding: 20px 15px;
+`;
+
+const NormalText = styled.Text`
+  font-family: Cairo-Regular;
+  font-size: 20px;
+  margin-top: 10px;
+  color: ${(props) => props.color};
+  text-align: center;
+`;
 export default Products;

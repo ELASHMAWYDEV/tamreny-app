@@ -49,6 +49,7 @@ const Gyms = (props) => {
       <MainContainer>
         <SearchBtn
           style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+    
         />
         <ScrollContainer>
           <Container>

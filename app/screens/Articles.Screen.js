@@ -14,6 +14,7 @@ const Articles = (props) => {
   const { setIsLoading } = useAppContext();
 
   const [articles, setArticles] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     getArticles();
@@ -45,13 +46,27 @@ const Articles = (props) => {
       <MainContainer bgColor={Colors.white}>
         <SearchBtn
           style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+          onSearch={setSearchQuery}
         />
         <ScrollContainer bgColor={Colors.white}>
           <Container bgColor={Colors.white}>
-            {articles.length != 0 &&
-              articles.map((article, i) => (
-                <ArticleCard key={i} {...props} article={article} />
-              ))}
+            {articles.filter(
+              (article) =>
+                article.title.includes(searchQuery) ||
+                article.content.includes(searchQuery)
+            ).length != 0 ? (
+              articles
+                .filter(
+                  (article) =>
+                    article.title.includes(searchQuery) ||
+                    article.content.includes(searchQuery)
+                )
+                .map((article, i) => (
+                  <ArticleCard key={i} {...props} article={article} />
+                ))
+            ) : (
+              <NormalText color={Colors.darkGray}>لا يوجد مقالات</NormalText>
+            )}
           </Container>
         </ScrollContainer>
       </MainContainer>
@@ -75,4 +90,11 @@ const Container = styled.View`
   padding: 20px 15px;
 `;
 
+const NormalText = styled.Text`
+  font-family: Cairo-Regular;
+  font-size: 20px;
+  margin-top: 10px;
+  color: ${(props) => props.color};
+  text-align: center;
+`;
 export default Articles;

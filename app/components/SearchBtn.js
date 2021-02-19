@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Icon from "react-native-ionicons";
 import { useThemeContext } from "../helpers/AppProvider";
 
-const SearchBtn = ({ style = {} }) => {
+const SearchBtn = ({ style = {}, onSearch = (query) => null }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
@@ -12,11 +12,18 @@ const SearchBtn = ({ style = {} }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const pressAnim = useRef(new Animated.Value(-400)).current;
+  const inputRef = useRef(null);
 
   /******************************************************/
 
+  useEffect(() => {
+    onSearch(searchQuery);
+  }, [searchQuery]);
+
+  
   const pressBtn = () => {
     if (searchQuery.length == 0) {
+      active == false ? inputRef.current.focus() : inputRef.current.blur();
       Animated.spring(pressAnim, {
         toValue: active ? -400 : 0,
         duration: 300,
@@ -24,6 +31,7 @@ const SearchBtn = ({ style = {} }) => {
       }).start();
       setActive(!active);
     } else {
+      onSearch(searchQuery);
     }
   };
 
@@ -49,6 +57,7 @@ const SearchBtn = ({ style = {} }) => {
       <SearchBoxContainer style={{ left: pressAnim }}>
         <Input
           borderColor={Colors.primary + "11"}
+          ref={inputRef}
           bgColor={Colors.white}
           placeholder="بحث..."
           value={searchQuery}
