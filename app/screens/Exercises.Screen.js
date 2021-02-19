@@ -65,22 +65,26 @@ const ImageExercises = (props) => {
     <>
       <Header {...props} title={name} backBtnEnabled />
       <MainContainer>
-        <SearchBtn style={SearchBtnStyle} />
+        <SearchBtn
+          style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+        />
         <ScrollContainer>
           <Container>
-            {exercises.map(({ _id, images, title, description, videoId }, i) => (
-              <ExerciseCard
-                key={i}
-                {...props}
-                _id={_id}
-                categoryId={categoryId}
-                images={images}
-                title={title}
-                description={description}
-                type={type}
-                videoId={videoId}
-              />
-            ))}
+            {exercises.map(
+              ({ _id, images, title, description, videoId }, i) => (
+                <ExerciseCard
+                  key={i}
+                  {...props}
+                  _id={_id}
+                  categoryId={categoryId}
+                  images={images}
+                  title={title}
+                  description={description}
+                  type={type}
+                  videoId={videoId}
+                />
+              )
+            )}
           </Container>
         </ScrollContainer>
       </MainContainer>

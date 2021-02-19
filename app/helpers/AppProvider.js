@@ -29,7 +29,27 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     getFaceImage();
     getPrimaryColor();
+
+    (async () => {
+      //Check if access_token & user_data exist on storage
+      const accessToken = JSON.parse(
+        await AsyncStorage.getItem("@access_token")
+      );
+      const userData = JSON.parse(await AsyncStorage.getItem("@user_data"));
+
+      if (!accessToken || !userData) setIsLoggedIn(false);
+      else setIsLoggedIn(true);
+    })();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (!isLoggedIn) {
+        await AsyncStorage.removeItem("@access_token");
+        await AsyncStorage.removeItem("@user_data");
+      }
+    })();
+  }, [isLoggedIn]);
 
   const getPrimaryColor = async () => {
     try {

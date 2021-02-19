@@ -17,6 +17,9 @@ import {
   Supplement,
   Products,
   Product,
+  Order,
+  Orders,
+  Settings
 } from "../screens/index";
 
 const Stack = createStackNavigator();
@@ -46,6 +49,9 @@ const MainNavigation = () => {
       <Stack.Screen name="Supplement" component={Supplement} />
       <Stack.Screen name="Products" component={Products} />
       <Stack.Screen name="Product" component={Product} />
+      <Stack.Screen name="Order" component={Order} />
+      <Stack.Screen name="Orders" component={Orders} />
+      <Stack.Screen name="Settings" component={Settings} />
     </Stack.Navigator>
   );
 };

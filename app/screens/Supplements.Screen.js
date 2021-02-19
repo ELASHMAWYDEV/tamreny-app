@@ -48,20 +48,15 @@ const Supplements = (props) => {
     padding: 20px 15px;
   `;
 
-  const SearchBtnStyle = styled.View`
-    position: absolute;
-    bottom: 15px;
-    left: 18px;
-    z-index: 6;
-  `;
-
   /******************************************************/
 
   return (
     <>
       <Header {...props} title="المكملات الغذائية" backBtnEnabled />
       <MainContainer>
-        <SearchBtn style={SearchBtnStyle} />
+        <SearchBtn
+          style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+        />
         <ScrollContainer>
           <Container>
             {supplements.length != 0 &&

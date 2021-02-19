@@ -149,7 +149,9 @@ const Product = (props) => {
     <>
       <Header {...props} title={product.title} backBtnEnabled />
       <ReactBtn customStyle={{ bottom: 90 }} />
-      {confirmBoxVisible && <ConfirmBuy setConfirmBoxVisible={setConfirmBoxVisible}/>}
+      {confirmBoxVisible && (
+        <ConfirmBuy setConfirmBoxVisible={setConfirmBoxVisible} {...props} />
+      )}
       <ScrollContainer>
         <MainContainer>
           <Container>
@@ -162,7 +164,14 @@ const Product = (props) => {
             </MainImageContainer>
             <Title style={{ textAlign: "right" }}>التفاصيل</Title>
             <Autolink text={product.content} component={Content} />
-            <Title style={{ textAlign: "right" }}>السيرة الذاتية للكوتش</Title>
+            {product.coachBrief && (
+              <>
+                <Title style={{ textAlign: "right" }}>
+                  السيرة الذاتية للكوتش
+                </Title>
+                <Autolink text={product.coachBrief} component={Content} />
+              </>
+            )}
           </Container>
         </MainContainer>
       </ScrollContainer>

@@ -135,7 +135,10 @@ const Home = (props) => {
             <BigImage source={require("../assets/img/shops.png")} />
             <BigCardLeft>
               <CardTitle>متجر المنتجات</CardTitle>
-              <TouchableNativeFeedback useForeground onPress={() => props.navigation.navigate("Products")}>
+              <TouchableNativeFeedback
+                useForeground
+                onPress={() => props.navigation.navigate("Products")}
+              >
                 <CardBtn>
                   <CardBtnText>اشتري الأن</CardBtnText>
                 </CardBtn>
@@ -147,18 +150,21 @@ const Home = (props) => {
               useForeground
               onPress={
                 () =>
-                  props.navigation.navigate("ExercisesCats", {
+                  props.navigation.navigate("Exercises", {
                     type: 2,
-                    title: "تمارين جاهزة",
+                    name: "تمارين رياضية",
                   }) //type = 2 => Video Exercises
               }
             >
               <SmallCard>
                 <SmallImage source={require("../assets/img/strength.png")} />
-                <CardText>تمارين{"\n"}جاهزة</CardText>
+                <CardText>تمارين{"\n"}رياضية</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
-            <TouchableNativeFeedback useForeground onPress={() => props.navigation.navigate("Supplements")}>
+            <TouchableNativeFeedback
+              useForeground
+              onPress={() => props.navigation.navigate("Supplements")}
+            >
               <SmallCard>
                 <SmallImage source={require("../assets/img/flat.png")} />
                 <CardText>المكملات{"\n"}الغذائية</CardText>
@@ -170,13 +176,13 @@ const Home = (props) => {
                 () =>
                   props.navigation.navigate("ExercisesCats", {
                     type: 1,
-                    title: "تمارين رياضية",
+                    title: "تمارين جاهزة",
                   }) //type = 1 => Image Exercises
               }
             >
               <SmallCard>
                 <SmallImage source={require("../assets/img/fitness.png")} />
-                <CardText>تمارين{"\n"}رياضية</CardText>
+                <CardText>تمارين{"\n"}جاهزة</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
           </SmallCardsContainer>

@@ -13,26 +13,20 @@ import { useThemeContext } from "../helpers/AppProvider";
 const SelectInput = ({
   value,
   visible = false,
-  onSelectValue = (value) => null,
+  onSelect = (value) => null,
   toggleSelection = () => null,
-  selection = [
-    {
-      value: "",
-      label: "",
-    },
-  ],
+  selection,
 }) => {
+
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
-  const [selectedValue, setValue] = useState(value || selection[0].value);
 
   const toggleModal = () => {
     toggleSelection();
   };
 
-  const changeValue = (value) => {
-    setValue(value);
-    onSelectValue(value);
+  const changeValue = (index) => {
+    onSelect(index);
     toggleModal();
   };
 
@@ -71,7 +65,7 @@ const SelectInput = ({
       borderRadius: 10,
       alignSelf: "center",
     },
-    selectedValue: {
+    selectedOption: {
       backgroundColor: Colors.black,
     },
   });
@@ -90,13 +84,13 @@ const SelectInput = ({
             <TouchableNativeFeedback
               useForeground
               key={index}
-              onPress={() => changeValue(item.value)}
+              onPress={() => changeValue(index)}
             >
               <View>
                 <View
                   style={[
                     styles.itemContainer,
-                    selectedValue == item.value && styles.selectedValue,
+                    value == index && styles.selectedOption,
                   ]}
                 >
                   <Text style={styles.itemLabel}>{item.label}</Text>

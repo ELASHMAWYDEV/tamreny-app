@@ -38,38 +38,16 @@ const Articles = (props) => {
   };
 
   /******************************************************/
-  const ScrollContainer = styled.ScrollView`
-    background-color: ${Colors.white};
-    min-height: 100%;
-  `;
-
-  const MainContainer = styled.View`
-    flex: 1;
-    background-color: ${Colors.white};
-  `;
-
-  const Container = styled.View`
-    flex: 1;
-    background-color: ${Colors.white};
-    padding: 20px 15px;
-  `;
-
-  const SearchBtnStyle = styled.View`
-    position: absolute;
-    bottom: 15px;
-    left: 18px;
-    z-index: 6;
-  `;
-
-  /******************************************************/
 
   return (
     <>
       <Header {...props} title="المقالات" backBtnEnabled />
-      <MainContainer>
-        <SearchBtn style={SearchBtnStyle}/>
-        <ScrollContainer>
-          <Container>
+      <MainContainer bgColor={Colors.white}>
+        <SearchBtn
+          style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+        />
+        <ScrollContainer bgColor={Colors.white}>
+          <Container bgColor={Colors.white}>
             {articles.length != 0 &&
               articles.map((article, i) => (
                 <ArticleCard key={i} {...props} article={article} />
@@ -80,5 +58,21 @@ const Articles = (props) => {
     </>
   );
 };
+
+const ScrollContainer = styled.ScrollView`
+  background-color: ${(props) => props.bgColor};
+  min-height: 100%;
+`;
+
+const MainContainer = styled.View`
+  flex: 1;
+  background-color: ${(props) => props.bgColor};
+`;
+
+const Container = styled.View`
+  flex: 1;
+  background-color: ${(props) => props.bgColor};
+  padding: 20px 15px;
+`;
 
 export default Articles;

@@ -5,6 +5,7 @@ import { RadioButton } from "react-native-paper";
 import { useThemeContext } from "../helpers/AppProvider";
 
 const ConfirmBuy = ({
+  navigation,
   title = "هنا يوضع عنوان المنتج",
   price = 250,
   setConfirmBoxVisible = (visible) => null,
@@ -129,7 +130,14 @@ const ConfirmBuy = ({
             ))}
           </PaymentsContainer>
           <RowContainer style={{ justifyContent: "space-between" }}>
-            <TouchableNativeFeedback useForeground onPress={() => null}>
+            <TouchableNativeFeedback
+              useForeground
+              onPress={() => {
+                setIsVisible(false);
+                setConfirmBoxVisible(false);
+                navigation.navigate("Order");
+              }}
+            >
               <Btn>
                 <NormalText center color={Colors.white}>
                   الذهاب للدفع

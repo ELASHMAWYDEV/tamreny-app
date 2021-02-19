@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useEffect } from "react";
-import { TouchableNativeFeedback } from "react-native";
+import { TouchableNativeFeedback, Alert } from "react-native";
 import styled from "styled-components";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import Icon from "react-native-ionicons";
@@ -10,7 +10,7 @@ import { MustLogin } from "./";
 
 const CustomDrawer = (props = { navigation }) => {
   const Theme = useThemeContext();
-  const { isLoggedIn, forceLogin } = useAuthContext();
+  const { isLoggedIn, forceLogin, setIsLoggedIn } = useAuthContext();
   let Colors = Theme.Colors;
 
   const screens = [
@@ -19,63 +19,64 @@ const CustomDrawer = (props = { navigation }) => {
       title: "الرئيسية",
       icon: "ios-home",
       active: true,
-      isLoggedIn: false,
+      isLoggedIn: [true, false],
     },
     {
       name: "Login",
       title: "تسجيل الدخول",
       icon: "person",
       active: false,
-      isLoggedIn: false,
+      isLoggedIn: [false],
     },
     {
-      name: "Home",
+      name: "Orders",
       title: "طلباتي",
       icon: "cart",
       active: false,
-      isLoggedIn: true,
+      isLoggedIn: [true],
     },
     {
-      name: "Home",
-      title: "محادثاتي",
-      icon: "ios-chatbubbles",
+      name: "Settings",
+      title: "الاعدادات",
+      icon: "settings",
       active: false,
-      isLoggedIn: true,
+      isLoggedIn: [true, false],
     },
-    // {
-    //   name: "Home",
-    //   title: "الاعدادات",
-    //   icon: "settings",
-    //   active: false,
-    //   isLoggedIn: false,
-    // },
     {
       name: "Home",
       title: "عن التطبيق",
       icon: "ios-help-circle",
       active: false,
-      isLoggedIn: false,
+      isLoggedIn: [true, false],
     },
     {
       name: "Home",
       title: "تواصل معنا",
       icon: "ios-mail",
       active: false,
-      isLoggedIn: false,
+      isLoggedIn: [true, false],
     },
     {
       name: "Home",
       title: "تقييم التطبيق",
       icon: "ios-star",
       active: false,
-      isLoggedIn: false,
+      isLoggedIn: [false, true],
     },
     {
       name: "Home",
       title: "تسجيل الخروج",
       icon: "ios-log-out",
       active: false,
-      isLoggedIn: true,
+      isLoggedIn: [true],
+      action: () =>
+        Alert.alert("هل أنت متأكد ؟", "تريد تسجيل الخروج من التطبيق", [
+          {
+            text: "إلغاء",
+            style: "Cancel",
+          },
+          { text: "تسجيل الخروج", onPress: () => setIsLoggedIn(false) },
+        ]),
     },
   ];
   /******************************************************/
@@ -138,7 +139,10 @@ const CustomDrawer = (props = { navigation }) => {
 
   /******************************************************/
   return (
-    <DrawerContentScrollView {...props} contentContainerStyle={{minHeight: "100%"}}>
+    <DrawerContentScrollView
+      {...props}
+      contentContainerStyle={{ minHeight: "100%" }}
+    >
       {forceLogin && <MustLogin {...props} />}
 
       <LogoContainer>
@@ -147,10 +151,13 @@ const CustomDrawer = (props = { navigation }) => {
       <BtnsContainer>
         {screens.map(
           (screen, i) =>
-            screen.isLoggedIn === isLoggedIn && (
+            screen.isLoggedIn.includes(isLoggedIn) && (
               <TouchableNativeFeedback
                 key={i}
-                onPress={() => props.navigation.navigate(screen.name)}
+                onPress={() =>
+                  (screen.action !== undefined && screen.action()) ||
+                  props.navigation.navigate(screen.name)
+                }
                 useForeground
               >
                 <DrawerBtn active={screen.active}>

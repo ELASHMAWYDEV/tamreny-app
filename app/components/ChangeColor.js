@@ -8,10 +8,10 @@ import { useThemeContext, useAppContext } from "../helpers/AppProvider";
 const ChangeColor = ({ visible, onClose = () => null }) => {
   const [isVisible, setIsVisible] = useState(visible);
   const [faceImages, setFaceImages] = useState([]);
-  
+
   const { Colors, setPrimaryColor } = useThemeContext();
   const { setPrimaryFace } = useAppContext();
-  
+
   useEffect(() => {
     setIsVisible(visible);
     getImagesUri();
@@ -60,79 +60,15 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
   };
 
   /******************************************************/
-  const MainContainer = styled(Modal)`
-    background-color: ${Colors.white};
-  `;
-
-  const Container = styled.View`
-    flex: 1;
-    background-color: ${Colors.black + "cc"};
-    justify-content: center;
-    align-items: center;
-  `;
-
-  const RowContainer = styled.View`
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    justify-content: center;
-  `;
-
-  const FaceContainer = styled.View`
-    margin: 0 10px;
-    align-items: center;
-    top: ${(props) => (props.upper ? -30 : props.lower ? 30 : 0)}px;
-    width: 110px;
-  `;
-
-  const ImageContainer = styled.View`
-    width: 65px;
-    height: 65px;
-    border-radius: ${150 / 2}px;
-    overflow: hidden;
-    justify-content: center;
-    align-items: center;
-    elevation: 7;
-  `;
-  const FaceImage = styled.Image`
-    width: 70px;
-    height: 70px;
-  `;
-
-  const FaceText = styled.Text`
-    color: ${Colors.white};
-    font-size: 16px;
-    text-align: center;
-    font-family: ArabicUI;
-    margin-top: 2px;
-    text-shadow: 0px 0px 1px #ffffff;
-  `;
-
-  const BigCircle = styled.View`
-    width: 150px;
-    height: 150px;
-    border-radius: ${200 / 2}px;
-    background-color: ${Colors.lightGray};
-    elevation: 10;
-    justify-content: center;
-    align-items: center;
-  `;
-
-  const BigText = styled.Text`
-    font-family: Cairo-Bold;
-    font-size: 23px;
-    color: ${Colors.darkGray};
-    text-align: center;
-  `;
-  /******************************************************/
   return (
     <MainContainer
+      bgColor={Colors.white}
       animationType="fade"
       visible={isVisible}
       onRequestClose={() => onClose()}
       transparent
     >
-      <Container>
+      <Container bgColor={Colors.black + "cc"}>
         <RowContainer>
           <FaceContainer>
             <TouchableNativeFeedback
@@ -148,7 +84,9 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
                 <FaceImage source={{ uri: faceImages.noFace }}></FaceImage>
               </ImageContainer>
             </TouchableNativeFeedback>
-            <FaceText numberOfLines={1}>مزاجي مش رايق</FaceText>
+            <FaceText color={Colors.white} numberOfLines={1}>
+              مزاجي مش رايق
+            </FaceText>
           </FaceContainer>
           <FaceContainer upper>
             <TouchableNativeFeedback
@@ -164,7 +102,9 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
                 <FaceImage source={{ uri: faceImages.happyFace }}></FaceImage>
               </ImageContainer>
             </TouchableNativeFeedback>
-            <FaceText numberOfLines={1}>مبسوط</FaceText>
+            <FaceText color={Colors.white} numberOfLines={1}>
+              مبسوط
+            </FaceText>
           </FaceContainer>
           <FaceContainer>
             <TouchableNativeFeedback
@@ -180,7 +120,9 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
                 <FaceImage source={{ uri: faceImages.sadFace }}></FaceImage>
               </ImageContainer>
             </TouchableNativeFeedback>
-            <FaceText numberOfLines={1}>ساد ورب العباد</FaceText>
+            <FaceText color={Colors.white} numberOfLines={1}>
+              ساد ورب العباد
+            </FaceText>
           </FaceContainer>
         </RowContainer>
         <RowContainer>
@@ -198,10 +140,12 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
                 <FaceImage source={{ uri: faceImages.powerFace }}></FaceImage>
               </ImageContainer>
             </TouchableNativeFeedback>
-            <FaceText numberOfLines={1}>ناوي أخربها</FaceText>
+            <FaceText color={Colors.white} numberOfLines={1}>
+              ناوي أخربها
+            </FaceText>
           </FaceContainer>
-          <BigCircle>
-            <BigText>أُظبط مزاجك</BigText>
+          <BigCircle bgColor={Colors.lightGray}>
+            <BigText color={Colors.darkGray}>أُظبط مزاجك</BigText>
           </BigCircle>
           <FaceContainer>
             <TouchableNativeFeedback
@@ -217,7 +161,9 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
                 <FaceImage source={{ uri: faceImages.afraidFace }}></FaceImage>
               </ImageContainer>
             </TouchableNativeFeedback>
-            <FaceText numberOfLines={1}>خايف</FaceText>
+            <FaceText color={Colors.white} numberOfLines={1}>
+              خايف
+            </FaceText>
           </FaceContainer>
         </RowContainer>
         <RowContainer>
@@ -237,7 +183,9 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
                 ></FaceImage>
               </ImageContainer>
             </TouchableNativeFeedback>
-            <FaceText numberOfLines={1}>طالع عيني</FaceText>
+            <FaceText color={Colors.white} numberOfLines={1}>
+              طالع عيني
+            </FaceText>
           </FaceContainer>
           <FaceContainer lower>
             <TouchableNativeFeedback
@@ -253,7 +201,9 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
                 <FaceImage source={{ uri: faceImages.loveFace }}></FaceImage>
               </ImageContainer>
             </TouchableNativeFeedback>
-            <FaceText numberOfLines={1}>واقع علي شوشتي</FaceText>
+            <FaceText color={Colors.white} numberOfLines={1}>
+              واقع علي شوشتي
+            </FaceText>
           </FaceContainer>
           <FaceContainer>
             <TouchableNativeFeedback
@@ -269,12 +219,79 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
                 <FaceImage source={{ uri: faceImages.angryFace }}></FaceImage>
               </ImageContainer>
             </TouchableNativeFeedback>
-            <FaceText numberOfLines={1}>غضبان</FaceText>
+            <FaceText color={Colors.white} numberOfLines={1}>
+              غضبان
+            </FaceText>
           </FaceContainer>
         </RowContainer>
       </Container>
     </MainContainer>
   );
 };
+
+const MainContainer = styled(Modal)`
+  background-color: ${(props) => props.bgColor};
+`;
+
+const Container = styled.View`
+  flex: 1;
+  background-color: ${(props) => props.bgColor};
+  justify-content: center;
+  align-items: center;
+`;
+
+const RowContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+`;
+
+const FaceContainer = styled.View`
+  margin: 0 10px;
+  align-items: center;
+  top: ${(props) => (props.upper ? -30 : props.lower ? 30 : 0)}px;
+  width: 110px;
+`;
+
+const ImageContainer = styled.View`
+  width: 65px;
+  height: 65px;
+  border-radius: ${150 / 2}px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  elevation: 7;
+`;
+const FaceImage = styled.Image`
+  width: 70px;
+  height: 70px;
+`;
+
+const FaceText = styled.Text`
+  color: ${(props) => props.color};
+  font-size: 16px;
+  text-align: center;
+  font-family: ArabicUI;
+  margin-top: 2px;
+  text-shadow: 0px 0px 1px #ffffff;
+`;
+
+const BigCircle = styled.View`
+  width: 150px;
+  height: 150px;
+  border-radius: ${200 / 2}px;
+  background-color: ${(props) => props.bgColor};
+  elevation: 10;
+  justify-content: center;
+  align-items: center;
+`;
+
+const BigText = styled.Text`
+  font-family: Cairo-Bold;
+  font-size: 23px;
+  color: ${(props) => props.color};
+  text-align: center;
+`;
 
 export default ChangeColor;

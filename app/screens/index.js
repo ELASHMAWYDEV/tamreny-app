@@ -14,3 +14,6 @@ export { default as Supplements } from "./Supplements.Screen";
 export { default as Supplement } from "./Supplement.Screen";
 export { default as Products } from "./Products.Screen";
 export { default as Product } from "./Product.Screen";
+export { default as Order } from "./Order.Screen";
+export { default as Orders } from "./Orders.Screen";
+export { default as Settings } from "./Settings.Screen";
